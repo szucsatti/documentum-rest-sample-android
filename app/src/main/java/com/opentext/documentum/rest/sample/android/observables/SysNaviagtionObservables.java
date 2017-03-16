@@ -467,23 +467,16 @@ public class SysNaviagtionObservables {
         });
     }
 
-    public static void removeUsers(final Set<Entry<RestObject>> userIds, final String groupId, final BaseUIInterface baseUIInterface, final SysObjectListBaseAdapter adapter) {
+    public static void removeUsers(final Set<Entry<RestObject>> userIds, final BaseUIInterface baseUIInterface, final SysObjectListBaseAdapter adapter) {
         baseUIInterface.enableLoadingBackground();
         final List<String> failIds = new LinkedList<>();
         Observable.create(new Observable.OnSubscribe<Object>() {
             @Override
             public void call(Subscriber<? super Object> subscriber) {
                 DCTMRestClient client = AppDCTMClientBuilder.build();
-                RestObject group = client.getGroup(groupId);
                 BatchBuilder batchBuilder = BatchBuilder.builder(client);
                 for (Entry entry : userIds)
                     batchBuilder.operation().delete(entry);
-//                    try {
-//                        client.delete(entry);
-//                    } catch (Exception e) {
-//                        Log.d(TAG, throwableToString(e));
-//                        failIds.add(entry.getId());
-//                    }
                 try {
                     client.createBatch(batchBuilder.build());
                 } catch (Exception e) {

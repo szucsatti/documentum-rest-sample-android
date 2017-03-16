@@ -15,9 +15,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.emc.documentum.rest.client.sample.model.Entry;
+import com.emc.documentum.rest.client.sample.model.RestObject;
 import com.opentext.documentum.rest.sample.android.MainActivity;
 import com.opentext.documentum.rest.sample.android.MiniGroupsListActivity;
 import com.opentext.documentum.rest.sample.android.MiniUsersListActivity;
@@ -28,13 +31,17 @@ import com.opentext.documentum.rest.sample.android.items.EntryItem;
 import com.opentext.documentum.rest.sample.android.observables.SysNaviagtionObservables;
 import com.opentext.documentum.rest.sample.android.util.AppCurrentUser;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 
 public class GroupsFragment extends SysObjectNavigationBaseFragment {
     private static final int REQUEST_ADD_USERS = 0x1;
     private static final int REQUEST_ADD_GROUPS = 0x2;
+    private Menu contextMenu;
+    private Menu optionsMenu;
 
     @Override
     View createMainComponent() {
@@ -49,35 +56,54 @@ public class GroupsFragment extends SysObjectNavigationBaseFragment {
         listView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
             List<String> ids = new LinkedList<String>();
             List<String> names = new LinkedList<String>();
+            Set<Entry<RestObject>> entries = new HashSet<>();
 
             @Override
             public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
                 View view = listView.getChildAt(position);
                 // change color here
+                Entry entry = ((EntryItem) listView.getAdapter().getItem(position)).entry;
                 if (checked) {
                     ((GroupsListAdapter) listView.getAdapter()).addSelectId(position);
-                    ids.add(((EntryItem) listView.getAdapter().getItem(position)).entry.getId());
-                    names.add(((EntryItem) listView.getAdapter().getItem(position)).entry.getTitle());
+                    ids.add(entry.getId());
+                    names.add(entry.getTitle());
+                    entries.add(entry);
                 } else {
                     ((GroupsListAdapter) listView.getAdapter()).removeSelectedId(position);
-                    for (int i = ids.size() - 1; i >= 0; --i)
-                        if (ids.get(i).equals(((EntryItem) listView.getAdapter().getItem(position)).entry.getId())) {
+                    for (int i = ids.size() - 1; i >= 0; --i) {
+                        if (ids.get(i).equals(entry.getId())) {
                             ids.remove(i);
                             names.remove(i);
+                            entries.remove(entry);
                         }
+                    }
                 }
                 // refresh only one row
                 View childView = listView.getChildAt(position - listView.getFirstVisiblePosition());
                 listView.getAdapter().getView(position, childView, listView).invalidate();
+                updateContextMenu();
             }
 
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                contextMenu = menu;
                 MenuInflater mi = mode.getMenuInflater();
                 if (AppCurrentUser.canCreateUserGroup()) {
                     mi.inflate(R.menu.groups_list_context_menu, menu);
                 }
+
                 return true;
+            }
+
+            public void updateContextMenu() {
+                if (contextMenu == null) {
+                    return;
+                }
+                if (adapters.size() > 1) {
+                    hideMenuItem(contextMenu, R.id.delete_group_menu);
+                } else {
+                    hideMenuItem(contextMenu, R.id.remove_group_menu);
+                }
             }
 
             @Override
@@ -96,6 +122,9 @@ public class GroupsFragment extends SysObjectNavigationBaseFragment {
                         return true;
                     case R.id.delete_group_menu:
                         SysNaviagtionObservables.deleteObject(adapters.get(adapters.size() - 1), GroupsFragment.this, idArray);
+                        break;
+                    case R.id.remove_group_menu:
+                        SysNaviagtionObservables.removeUsers(entries, GroupsFragment.this, adapters.get(adapters.size() - 1));
                         break;
                     case R.id.add_users_menu:
                     case R.id.show_users_menu:
@@ -137,6 +166,7 @@ public class GroupsFragment extends SysObjectNavigationBaseFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.groups_list_normal_menu, menu);
+        optionsMenu = menu;
         if (!AppCurrentUser.canCreateUserGroup()) {
             MenuItem createGroupItem = menu.findItem(R.id.create_group);
             createGroupItem.setEnabled(false);
@@ -158,6 +188,14 @@ public class GroupsFragment extends SysObjectNavigationBaseFragment {
         return true;
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        super.onItemClick(parent, view, position, id);
+        if (adapters.size() > 1 && optionsMenu != null) {
+            hideMenuItem(optionsMenu, R.id.create_group);
+        }
+    }
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -174,5 +212,10 @@ public class GroupsFragment extends SysObjectNavigationBaseFragment {
             ((ListView) mainComponent).setAdapter(lastAdapter);
         }
         getActivity().findViewById(R.id.back_button).setOnClickListener(this);
+    }
+
+    private static void hideMenuItem(Menu menu, int id) {
+        MenuItem item = menu.findItem(id);
+        item.setVisible(false);
     }
 }

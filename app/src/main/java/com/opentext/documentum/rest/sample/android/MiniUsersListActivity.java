@@ -115,7 +115,7 @@ public class MiniUsersListActivity extends MiniListBaseActivity {
         Set<Entry<RestObject>> items = new HashSet<>();
         for (int i : selected)
             items.add(adapter.getItem(i).entry);
-        SysNaviagtionObservables.removeUsers(items, groupId, this, adapter);
+        SysNaviagtionObservables.removeUsers(items, this, adapter);
     }
 
 }

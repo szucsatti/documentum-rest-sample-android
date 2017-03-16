@@ -12,6 +12,6 @@
     <item
         android:id="@+id/delete_user_menu"
         android:icon="@drawable/vic_del"
-        android:title="Remove"
+        android:title="Delete the user"
         app:showAsAction="ifRoom|withText"></item>
 </menu>

@@ -12,7 +12,12 @@
     <item
         android:id="@+id/delete_group_menu"
         android:icon="@drawable/vic_del"
-        android:title="Delete"
+        android:title="Delete the group"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/remove_group_menu"
+        android:icon="@drawable/vic_remove_group"
+        android:title="Remove the sub group"
         app:showAsAction="ifRoom|withText" />
     <item
         android:id="@+id/more_group_menu"
@@ -23,12 +28,12 @@
             <item
                 android:id="@+id/add_users_menu"
                 android:icon="@drawable/vic_add_user"
-                android:title="Add users"
+                android:title="Add member users"
                 app:showAsAction="ifRoom|withText" />
             <item
                 android:id="@+id/add_groups_menu"
                 android:icon="@drawable/vic_addto_group"
-                android:title="Add sub groups"
+                android:title="Add member groups"
                 app:showAsAction="ifRoom|withText" />
         </menu>
     </item>
