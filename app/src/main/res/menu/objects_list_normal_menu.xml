@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2017. OpenText Corporation. All Rights Reserved.
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/create_object"
+        android:icon="@drawable/vic_plus"
+        android:title="Create"
+        app:showAsAction="always">
+        <menu>
+            <group>
+                <item
+                    android:id="@+id/create_cabinet"
+                    android:icon="@drawable/vic_add_cabinet"
+                    android:title="Cabinet"
+                    app:showAsAction="ifRoom|withText" />
+                <item
+                    android:id="@+id/create_folder"
+                    android:icon="@drawable/vic_add_folder"
+                    android:title="Folder"
+                    app:showAsAction="ifRoom|withText" />
+                <item
+                    android:id="@+id/create_document"
+                    android:icon="@drawable/vic_add_doc"
+                    android:title="Document"
+                    app:showAsAction="ifRoom|withText" />
+            </group>
+        </menu>
+    </item>
+
+    <item
+        android:icon="@drawable/vic_dots"
+        android:title="More"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/copy_here_menu"
+                android:icon="@drawable/vic_paste"
+                android:title="Paste here"
+                app:showAsAction="ifRoom|withText" />
+            <item
+                android:id="@+id/move_here_menu"
+                android:icon="@drawable/vic_move"
+                android:title="Move here"
+                app:showAsAction="ifRoom|withText" />
+            <item
+                android:id="@+id/search_menu"
+                android:icon="@drawable/vic_search"
+                android:title="Search"
+                app:showAsAction="ifRoom|withText" />
+            <item
+                android:id="@+id/refresh_menu"
+                android:icon="@drawable/vic_refresh"
+                android:title="Refresh"
+                app:showAsAction="ifRoom|withText" />
+        </menu>
+    </item>
+</menu>

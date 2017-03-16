@@ -1,0 +1,44 @@
+<!--
+  ~ Copyright (c) 2017. OpenText Corporation. All Rights Reserved.
+  -->
+
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/pureWhite</item>
+
+        <!--context menu overlap the toolbar-->
+        <item name="windowActionModeOverlay">true</item>
+        <!-- support v19 -->
+        <!--
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:fitsSystemWindows">true</item>
+        -->
+    </style>
+
+    <style name="DialogTheme" parent="Theme.AppCompat.Dialog">
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/pureWhite</item>
+    </style>
+
+
+    <style name="MyToolbar" parent="@style/ThemeOverlay.AppCompat">
+        <item name="android:textColorPrimary">@color/selectedText</item>
+        <item name="android:textColorPrimaryInverse">@color/selectedText</item>
+        <item name="actionMenuTextColor">@color/selectedText</item>
+        <item name="android:textColorSecondary">@color/selectedText</item>
+        <item name="drawerArrowStyle">@style/WhiteDrawerIconStyle</item>
+    </style>
+
+    <style name="WhiteDrawerIconStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@android:color/white</item>
+    </style>
+</resources>

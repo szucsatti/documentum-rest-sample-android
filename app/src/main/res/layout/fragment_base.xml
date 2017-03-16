@@ -1,0 +1,39 @@
+<!--
+  ~ Copyright (c) 2017. OpenText Corporation. All Rights Reserved.
+  -->
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.opentext.documentum.rest.sample.android.fragments.BaseFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/fragment_bk_image"
+            android:layout_width="@dimen/loading_image_length"
+            android:layout_height="@dimen/loading_image_length"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/fragment_bk_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textColor="#9B9B9B"
+        android:textSize="36sp"
+        android:visibility="gone" />
+
+    <View
+        android:id="@+id/fragment_main_component"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+
+</android.support.design.widget.CoordinatorLayout>

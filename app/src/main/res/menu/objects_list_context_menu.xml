@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2017. OpenText Corporation. All Rights Reserved.
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/object_context_menu">
+    <item
+        android:id="@+id/dele_menu"
+        android:icon="@drawable/vic_del"
+        android:title="Remove"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/more_menu"
+        android:icon="@drawable/vic_dots_b"
+        android:title="More"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/copy_menu"
+                android:icon="@drawable/vic_copy"
+                android:title="Copy"
+                app:showAsAction="ifRoom|withText" />
+            <item
+                android:id="@+id/move_menu"
+                android:icon="@drawable/vic_move"
+                android:title="Move"
+                app:showAsAction="ifRoom|withText" />
+            <item
+                android:id="@+id/check_out_menu"
+                android:icon="@drawable/vic_lock"
+                android:title="Checkout"
+                app:showAsAction="ifRoom|withText" />
+            <item
+                android:id="@+id/cancel_check_out"
+                android:icon="@drawable/vic_unlock"
+                android:title="Cancel checkout"
+                app:showAsAction="ifRoom|withText" />
+            <item
+                android:id="@+id/check_in_major"
+                android:icon="@drawable/vic_branch"
+                android:title="Checkin as major"
+                app:showAsAction="ifRoom|withText" />
+            <item
+                android:id="@+id/check_in_minor"
+                android:icon="@drawable/vic_branch"
+                android:title="Checkin as minor"
+                app:showAsAction="ifRoom|withText" />
+            <item
+                android:id="@+id/check_in_branch"
+                android:icon="@drawable/vic_branch"
+                android:title="Checkin as branch"
+                app:showAsAction="ifRoom|withText" />
+        </menu>
+    </item>
+</menu>

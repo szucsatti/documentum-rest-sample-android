@@ -1,0 +1,39 @@
+<!--
+  ~ Copyright (c) 2017. OpenText Corporation. All Rights Reserved.
+  -->
+
+<resources>
+    <dimen name="normal_padding">16dp</dimen>
+    <dimen name="normal_textsize">14sp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- toolbar dimensions -->
+    <dimen name="layout_toolbar_height">56dp</dimen>
+    <dimen name="layout_toolbar_title_size">20sp</dimen>
+    <dimen name="toolbar_back_length">24dp</dimen>
+
+    <!-- drawer dimensions -->
+    <dimen name="drawer_account_height">64dp</dimen>
+    <dimen name="drawer_width">200dp</dimen>
+    <dimen name="drawer_item_height">56dp</dimen>
+    <dimen name="drawer_item_image_length">24dp</dimen>
+
+    <!-- item dimens -->
+    <dimen name="item_height">80dp</dimen>
+    <dimen name="item_type_image_length">40dp</dimen>
+    <dimen name="item_about_image_length">22dp</dimen>
+    <dimen name="item_title_size">18sp</dimen>
+    <dimen name="item_date_size">16sp</dimen>
+
+    <!-- login dimens -->
+    <dimen name="login_item_height">56dp</dimen>
+    <dimen name="login_label_width">112dp</dimen>
+    <dimen name="object_label_width">136dp</dimen>
+    <dimen name="login_product_label">20sp</dimen>
+
+
+    <dimen name="loading_image_length">32dp</dimen>
+
+</resources>

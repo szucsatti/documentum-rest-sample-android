@@ -1,0 +1,136 @@
+<!--
+  ~ Copyright (c) 2017. OpenText Corporation. All Rights Reserved.
+  -->
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/object_content"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <FrameLayout
+                    android:id="@+id/object_buttons"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="right|center_vertical"
+                        android:orientation="vertical">
+
+                        <Button
+                            android:id="@+id/object_text_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:drawable/dialog_holo_light_frame"
+                            android:text="txt"
+                            android:textColor="@color/textBlack"
+                            android:textSize="20sp" />
+
+                        <Button
+                            android:id="@+id/object_file_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:drawable/dialog_holo_light_frame"
+                            android:text="file"
+                            android:textColor="@color/textBlack"
+                            android:textSize="20sp" />
+
+                        <Button
+                            android:id="@+id/object_download_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:drawable/dialog_holo_light_frame"
+                            android:text="save"
+                            android:textColor="@color/textBlack"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/object_default_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center|center_horizontal"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="32dp"
+                        android:scaleType="fitCenter"
+                        android:text="CAN'T LOAD CONTENT"
+                        android:textColor="@color/textBlack"
+                        android:visibility="gone"
+                        app:layout_collapseMode="parallax" />
+
+                    <ImageView
+                        android:id="@+id/object_image"
+                        android:layout_width="240dp"
+                        android:layout_height="240dp"
+                        android:layout_centerInParent="true"
+                        android:scaleType="fitCenter"
+                        android:visibility="gone"
+                        app:layout_collapseMode="parallax" />
+
+                    <EditText
+                        android:id="@+id/object_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="80dp"
+                        android:scaleType="fitCenter"
+                        android:textColor="@color/textBlack"
+                        android:visibility="gone"
+                        app:layout_collapseMode="parallax" />
+                </RelativeLayout>
+            </FrameLayout>
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/object_detail_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:descendantFocusability="afterDescendants"
+        android:focusable="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:descendantFocusability="afterDescendants"
+            android:focusable="false"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/object_detail_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:descendantFocusability="afterDescendants"
+                android:focusable="false" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>

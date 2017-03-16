@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2017. OpenText Corporation. All Rights Reserved.
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/move_to_group_menu"
+        android:icon="@drawable/vic_addto_group"
+        android:title="Add to group"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/delete_user_menu"
+        android:icon="@drawable/vic_del"
+        android:title="Remove"
+        app:showAsAction="ifRoom|withText"></item>
+</menu>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2017. OpenText Corporation. All Rights Reserved.
+  -->
+
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tool_bar"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/layout_toolbar_height"
+    android:background="@color/drawer_account_bk"
+    android:elevation="5dp"
+    android:theme="@style/MyToolbar">
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="@dimen/toolbar_back_length"
+        android:layout_height="@dimen/toolbar_back_length"
+        android:layout_marginLeft="0dp"
+        android:background="@drawable/vic_back"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:ellipsize="start"
+        android:maxLines="1"
+        android:text="@string/app_name"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/layout_toolbar_title_size" />
+
+</android.support.v7.widget.Toolbar>

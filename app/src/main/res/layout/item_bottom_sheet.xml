@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2017. OpenText Corporation. All Rights Reserved.
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/drawer_item_height"
+    android:gravity="center_vertical"
+    android:paddingLeft="16dp">
+
+    <ImageView
+        android:id="@+id/bottom_sheet_item_img"
+        android:layout_width="@dimen/drawer_item_image_length"
+        android:layout_height="@dimen/drawer_item_image_length" />
+
+    <TextView
+        android:id="@+id/bottom_sheet_item_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@id/bottom_sheet_item_img"
+        android:gravity="center_vertical"
+        android:paddingLeft="40dp"
+        android:textSize="@dimen/normal_textsize" />
+</RelativeLayout>

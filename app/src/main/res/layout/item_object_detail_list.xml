@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2017. OpenText Corporation. All Rights Reserved.
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <EditText
+        android:id="@+id/label"
+        style="@android:style/Widget.EditText"
+        android:layout_width="@dimen/object_label_width"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:layout_weight="0"
+        android:background="@android:color/transparent"
+        android:enabled="false"
+        android:singleLine="false"
+        android:textAlignment="textStart"
+        android:textColor="@color/loginTextGray"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="32dp"
+        android:enabled="false"
+        android:singleLine="false"
+        android:textAlignment="center"
+        android:textSize="14sp" />
+</LinearLayout>
