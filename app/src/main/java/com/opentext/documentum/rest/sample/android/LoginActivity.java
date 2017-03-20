@@ -125,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         checkBox.setEnabled(false);
-        consoleTitleView.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.vic_console), null, null, null);
+        consoleTitleView.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.vic_msg), null, null, null);
     }
 
     public void setContextRootEnable(boolean enable) {

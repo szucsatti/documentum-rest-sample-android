@@ -27,7 +27,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -131,6 +130,7 @@ public class ObjectBaseFragment extends Fragment {
         adapter = new ObjectDetailAdapter(getContext(), R.layout.item_object_detail_list);
         objectDetailListView.setAdapter(adapter);
         scrollView.requestDisallowInterceptTouchEvent(true);
+        scrollView.setNestedScrollingEnabled(true);
         getActivity().findViewById(R.id.back_button).setVisibility(View.VISIBLE);
         titleView.setVisibility(View.GONE);
     }
@@ -196,7 +196,6 @@ public class ObjectBaseFragment extends Fragment {
     public void updateAdapterItems(ObjectDetailItem[] items, boolean onCreation) {
         this.adapter.updateItems(items, onCreation);
         this.adapter.notifyDataSetChanged();
-        this.setListViewHeightBasedOnChildren();
     }
 
     public Map<String, String> getEditableProperties() {
@@ -238,28 +237,6 @@ public class ObjectBaseFragment extends Fragment {
         CoordinatorLayout.LayoutParams params =
                 (CoordinatorLayout.LayoutParams) scrollView.getLayoutParams();
         params.setBehavior(null);
-    }
-
-
-    public void setListViewHeightBasedOnChildren() {
-        ListAdapter listAdapter = objectDetailListView.getAdapter();
-        if (listAdapter == null)
-            return;
-
-        int desiredWidth = View.MeasureSpec.makeMeasureSpec(objectDetailListView.getWidth(), View.MeasureSpec.UNSPECIFIED);
-        int totalHeight = 0;
-        View view = null;
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            view = listAdapter.getView(i, view, objectDetailListView);
-            if (i == 0)
-                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-            totalHeight += view.getMeasuredHeight();
-        }
-        ViewGroup.LayoutParams params = objectDetailListView.getLayoutParams();
-        params.height = totalHeight + (objectDetailListView.getDividerHeight() * (listAdapter.getCount() - 1));
-        objectDetailListView.setLayoutParams(params);
     }
 
     @Override

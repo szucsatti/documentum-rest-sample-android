@@ -37,8 +37,6 @@ public class ObjectCreateObservables {
             public void call(Subscriber<? super Object> subscriber) {
                 DCTMRestClient client = AppDCTMClientBuilder.build();
                 String[] args = getArgs(objectCreateFragment.getProperties());
-                // todo: here is the point to distinguish the management
-                // todo: create_user_under_group
                 switch (objectCreateFragment.getMenuItemId()) {
                     case R.id.create_folder:
                         RestObject folder = new PlainRestObject(args);
@@ -55,7 +53,8 @@ public class ObjectCreateObservables {
                         client.createUser(new PlainRestObject(args));
                         break;
                     case R.id.create_cabinet:
-                        //todo;
+                        RestObject cabinet = new PlainRestObject(args);
+                        client.createCabinet(cabinet);
                         break;
                     case R.id.create_group:
                         if (objectCreateFragment.getObjectId() == null)

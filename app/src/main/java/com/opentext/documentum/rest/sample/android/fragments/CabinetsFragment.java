@@ -246,8 +246,13 @@ public class CabinetsFragment extends SysObjectNavigationBaseFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         CabinetsListAdapter adapter = (CabinetsListAdapter) adapters.get(adapters.size() - 1);
         switch (item.getItemId()) {
-//todo            case R.id.create_cabinet:
-//                ((MainActivity) getActivity()).attachTmpFragment(ObjectCreateFragment.newInstance(adapter.getEntranceObjectId(), R.id.create_cabinet));
+            case R.id.create_cabinet:
+                ((MainActivity) getActivity()).attachTmpFragment(ObjectCreateFragment.newInstance(
+                        adapter.getEntranceObjectId(),
+                        R.id.create_cabinet,
+                        adapter,
+                        this));
+                break;
             case R.id.create_folder:
                 ((MainActivity) getActivity()).attachTmpFragment(ObjectCreateFragment.newInstance(
                         adapter.getEntranceObjectId(),
