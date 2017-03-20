@@ -87,13 +87,13 @@ public abstract class BaseFragment extends Fragment {
 
     public void setEmptyBackground() {
         resetBackground();
-        bkTextView.setText("EMPTY HERE :)");
+        bkTextView.setText(getString(R.string.empty_msg));
         bkTextView.setVisibility(View.VISIBLE);
     }
 
     public void setErrorBackground() {
         resetBackground();
-        bkTextView.setText("ERROR :(");
+        bkTextView.setText(getString(R.string.error_msg));
         bkTextView.setVisibility(View.VISIBLE);
     }
 

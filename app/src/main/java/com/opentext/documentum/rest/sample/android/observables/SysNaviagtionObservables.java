@@ -202,12 +202,6 @@ public class SysNaviagtionObservables {
                 BatchBuilder batchBuilder = BatchBuilder.builder(client);
                 for (String singleId : ids)
                     batchBuilder.operation().delete(client.getObject(singleId));
-//                    try {
-//                        client.delete(client.getObject(singleId));
-//                    } catch (Exception e) {
-//                        Log.d(TAG, throwableToString(e));
-//                        failIds.add(singleId);
-//                    }
                 try {
                     client.createBatch(batchBuilder.build());
                 } catch (Exception e) {
@@ -287,12 +281,6 @@ public class SysNaviagtionObservables {
                 BatchBuilder batchBuilder = BatchBuilder.builder(client);
                 for (String id : MISCHelper.getTmpIds())
                     batchBuilder.operation().createObject(client.getObject(adapter.getEntranceObjectId()), LinkRelation.OBJECTS, new PlainRestObject(client.getObject(id).self()));
-//                    try {
-//                        client.createObject(client.getObject(adapter.getEntranceObjectId()), LinkRelation.OBJECTS, new PlainRestObject(client.getObject(id).self()));
-//                    } catch (Exception e) {
-//                        Log.d(TAG, throwableToString(e));
-//                        failIds.add(id);
-//                    }
                 try {
                     client.createBatch(batchBuilder.build());
                 } catch (Exception e) {
@@ -318,12 +306,17 @@ public class SysNaviagtionObservables {
             public void onNext(Object o) {
                 SysNaviagtionObservables.refresh(adapter, fragment);
                 fragment.disableLoadingBackground();
+                MISCHelper.setTmpIds(null);
                 if (failIds.size() == 0)
                     toastSuccess(fragment, "copy");
                 else {
                     //TODO: add log feature
                     toastFailed(fragment, "copy");
                 }
+                if (fragment instanceof Fragment)
+                    ((SysObjectNavigationBaseFragment) fragment).getActivity().invalidateOptionsMenu();
+                else if (fragment instanceof AppCompatActivity)
+                    ((AppCompatActivity) fragment).invalidateOptionsMenu();
             }
         });
     }
@@ -344,9 +337,7 @@ public class SysNaviagtionObservables {
                         Feed<FolderLink> parentFolderLinks = client.getFolderLinks(objectToBeMoved, LinkRelation.PARENT_LINKS);
                         FolderLink parentLinkToBeMove = client.getFolderLink(parentFolderLinks.getEntries().get(0).getContentSrc());
                         if (parentLinkToBeMove.getChildId().equals(objectToBeMoved.getObjectId()) && parentLinkToBeMove.getParentId().equals(fromId)) {
-//                            FolderLink movedLink = client.move(parentLinkToBeMove, new PlainFolderLink(dest.self()));
                             batchBuilder.operation().move(parentLinkToBeMove, new PlainFolderLink(dest.self()));
-//                            System.out.println("href:" + movedLink.getHref() + ", parent id:" + movedLink.getParentId() + ", child id:" + movedLink.getChildId());
                         }
                     }
                 } catch (Exception e) {
@@ -364,6 +355,7 @@ public class SysNaviagtionObservables {
                         failIds.add("");
                     }
                 }
+                subscriber.onNext(null);
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<Object>() {
             @Override

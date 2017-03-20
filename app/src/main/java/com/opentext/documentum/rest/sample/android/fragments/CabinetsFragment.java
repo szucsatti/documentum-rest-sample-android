@@ -216,10 +216,14 @@ public class CabinetsFragment extends SysObjectNavigationBaseFragment {
         if (MISCHelper.getTmpIds() == null) {
             hideMenuItem(menu, R.id.move_here_menu);
             hideMenuItem(menu, R.id.copy_here_menu);
+            hideMenuItem(menu, R.id.cancel_copy_menu);
+            hideMenuItem(menu, R.id.cancel_move_menu);
         } else if (MISCHelper.getMoveFromAdapter() == null) {
             hideMenuItem(menu, R.id.move_here_menu);
+            hideMenuItem(menu, R.id.cancel_move_menu);
         } else {
             hideMenuItem(menu, R.id.copy_here_menu);
+            hideMenuItem(menu, R.id.cancel_copy_menu);
         }
     }
 
@@ -273,7 +277,17 @@ public class CabinetsFragment extends SysObjectNavigationBaseFragment {
             case R.id.move_here_menu:
                 SysNaviagtionObservables.move(adapter, this);
                 break;
+            case R.id.cancel_copy_menu:
+                MISCHelper.setTmpIds(null);
+                CabinetsFragment.this.getActivity().invalidateOptionsMenu();
+                break;
+            case R.id.cancel_move_menu:
+                MISCHelper.setTmpIds(null);
+                MISCHelper.setMoveFromAdapter(null);
+                CabinetsFragment.this.getActivity().invalidateOptionsMenu();
+                break;
             case R.id.search_menu:
+                //todo
                 break;
             case R.id.refresh_menu:
                 Log.d(TAG, "refresh_menu");

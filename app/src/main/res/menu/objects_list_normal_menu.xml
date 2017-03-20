@@ -46,6 +46,16 @@
                 android:title="Move here"
                 app:showAsAction="ifRoom|withText" />
             <item
+                android:id="@+id/cancel_copy_menu"
+                android:icon="@drawable/vic_cancel"
+                android:title="Cancel copy"
+                app:showAsAction="ifRoom|withText" />
+            <item
+                android:id="@+id/cancel_move_menu"
+                android:icon="@drawable/vic_cancel"
+                android:title="Cancel move"
+                app:showAsAction="ifRoom|withText" />
+            <item
                 android:id="@+id/search_menu"
                 android:icon="@drawable/vic_search"
                 android:title="Search"
