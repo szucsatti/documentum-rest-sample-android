@@ -94,6 +94,7 @@ public class CabinetsFragment extends SysObjectNavigationBaseFragment {
 
             @Override
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                CabinetsListAdapter adapter = (CabinetsListAdapter) adapters.get(adapters.size() - 1);
                 String[] idArray = new String[ids.size()];
                 for (int i = 0; i < idArray.length; ++i)
                     idArray[i] = ids.get(i);
@@ -134,7 +135,14 @@ public class CabinetsFragment extends SysObjectNavigationBaseFragment {
                         case R.id.check_in_minor:
                         case R.id.check_in_branch:
                             ((MainActivity) getActivity()).attachTmpFragment(
-                                    ObjectDetailFragment.newInstance(idArray[0], item.getItemId(), "to-checkin", contentTypes.get(0), null));
+                                    ObjectDetailFragment.newInstance(
+                                            idArray[0],
+                                            item.getItemId(),
+                                            "to-checkin",
+                                            contentTypes.get(0),
+                                            null,
+                                            adapter,
+                                            CabinetsFragment.this));
                             break;
                     }
                 }
@@ -241,10 +249,18 @@ public class CabinetsFragment extends SysObjectNavigationBaseFragment {
 //todo            case R.id.create_cabinet:
 //                ((MainActivity) getActivity()).attachTmpFragment(ObjectCreateFragment.newInstance(adapter.getEntranceObjectId(), R.id.create_cabinet));
             case R.id.create_folder:
-                ((MainActivity) getActivity()).attachTmpFragment(ObjectCreateFragment.newInstance(adapter.getEntranceObjectId(), R.id.create_folder));
+                ((MainActivity) getActivity()).attachTmpFragment(ObjectCreateFragment.newInstance(
+                        adapter.getEntranceObjectId(),
+                        R.id.create_folder,
+                        adapter,
+                        this));
                 break;
             case R.id.create_document:
-                ((MainActivity) getActivity()).attachTmpFragment(ObjectCreateFragment.newInstance(adapter.getEntranceObjectId(), R.id.create_document));
+                ((MainActivity) getActivity()).attachTmpFragment(ObjectCreateFragment.newInstance(
+                        adapter.getEntranceObjectId(),
+                        R.id.create_document,
+                        adapter,
+                        this));
                 break;
             case R.id.copy_here_menu:
                 SysNaviagtionObservables.copyObject(adapter, this);

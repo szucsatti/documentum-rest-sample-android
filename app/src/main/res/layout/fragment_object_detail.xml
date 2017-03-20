@@ -7,7 +7,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <android.support.design.widget.AppBarLayout
         android:id="@+id/object_content"
         android:layout_width="match_parent"
@@ -116,7 +115,6 @@
         android:descendantFocusability="afterDescendants"
         android:focusable="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -124,6 +122,17 @@
             android:focusable="false"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/object_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-smallcaps"
+                android:maxLines="1"
+                android:paddingTop="8dp"
+                android:textAlignment="center"
+                android:textColor="@color/textGray"
+                android:textSize="18sp"
+                android:textStyle="bold" />
             <ListView
                 android:id="@+id/object_detail_list"
                 android:layout_width="match_parent"

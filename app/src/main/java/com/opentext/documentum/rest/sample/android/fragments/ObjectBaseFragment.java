@@ -54,16 +54,20 @@ public class ObjectBaseFragment extends Fragment {
     public static String KEY_ID = "OBJECT_ID";
     protected String objectId;
     protected ObjectDetailAdapter adapter;
+    @BindView(R.id.object_title)
+    TextView titleView;
+
+    @BindView(R.id.object_detail_list)
+    ListView objectDetailListView;
+    @BindView(R.id.object_detail_scroll_view)
+    NestedScrollView scrollView;
+
     @BindView(R.id.object_image)
     ImageView imageView;
     @BindView(R.id.object_text)
     EditText textView;
     @BindView(R.id.object_default_text)
     TextView defaultTextView;
-    @BindView(R.id.object_detail_list)
-    ListView objectDetailListView;
-    @BindView(R.id.object_detail_scroll_view)
-    NestedScrollView scrollView;
     @BindView(R.id.object_buttons)
     View buttons;
     @BindView(R.id.object_text_button)
@@ -128,6 +132,7 @@ public class ObjectBaseFragment extends Fragment {
         objectDetailListView.setAdapter(adapter);
         scrollView.requestDisallowInterceptTouchEvent(true);
         getActivity().findViewById(R.id.back_button).setVisibility(View.VISIBLE);
+        titleView.setVisibility(View.GONE);
     }
 
     @Override

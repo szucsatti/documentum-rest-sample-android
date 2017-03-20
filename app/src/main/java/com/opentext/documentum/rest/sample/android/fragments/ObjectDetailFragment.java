@@ -15,7 +15,9 @@ import android.view.View;
 import com.emc.documentum.rest.client.sample.model.RestObject;
 import com.opentext.documentum.rest.sample.android.MainActivity;
 import com.opentext.documentum.rest.sample.android.R;
+import com.opentext.documentum.rest.sample.android.adapters.SysObjectListBaseAdapter;
 import com.opentext.documentum.rest.sample.android.enums.DctmObjectType;
+import com.opentext.documentum.rest.sample.android.enums.DctmPropertyName;
 import com.opentext.documentum.rest.sample.android.observables.ObjectDetailObservables;
 import com.opentext.documentum.rest.sample.android.util.AppCurrentUser;
 
@@ -29,22 +31,31 @@ public class ObjectDetailFragment extends ObjectBaseFragment {
     String title;
     String contentType;
     RestObject restObject;
+    SysObjectListBaseAdapter sourceAdapter;
+    BaseUIInterface sourceUiInterface;
 
     public ObjectDetailFragment() {
         // Required empty public constructor
     }
 
-    public static ObjectDetailFragment newInstance(String id, String contentType, RestObject restObject) {
+    public static ObjectDetailFragment newInstance(String id, String contentType, RestObject restObject,
+                                                   final SysObjectListBaseAdapter adapter,
+                                                   final BaseUIInterface baseUIInterface) {
         ObjectDetailFragment instance = new ObjectDetailFragment();
         Bundle args = new Bundle();
         args.putString(KEY_ID, id);
         args.putString(KEY_CONTENT_TYPE, contentType);
         instance.setArguments(args);
         instance.setRestObject(restObject);
+        instance.sourceAdapter = adapter;
+        instance.sourceUiInterface = baseUIInterface;
         return instance;
     }
 
-    public static ObjectDetailFragment newInstance(String id, int menuItemId, String title, String contentType, RestObject restObject) {
+    public static ObjectDetailFragment newInstance(String id, int menuItemId, String title,
+                                                   String contentType, RestObject restObject,
+                                                   final SysObjectListBaseAdapter adapter,
+                                                   final BaseUIInterface baseUIInterface) {
         ObjectDetailFragment instance = new ObjectDetailFragment();
         Bundle args = new Bundle();
         args.putString(KEY_ID, id);
@@ -53,6 +64,8 @@ public class ObjectDetailFragment extends ObjectBaseFragment {
         args.putString(KEY_CONTENT_TYPE, contentType);
         instance.setArguments(args);
         instance.setRestObject(restObject);
+        instance.sourceAdapter = adapter;
+        instance.sourceUiInterface = baseUIInterface;
         return instance;
     }
 
@@ -67,6 +80,8 @@ public class ObjectDetailFragment extends ObjectBaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        titleView.setVisibility(View.VISIBLE);
+        titleView.setText(getResources().getString(R.string.properties));
         getActivity().findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,7 +96,7 @@ public class ObjectDetailFragment extends ObjectBaseFragment {
                 setNullContent();
                 break;
         }
-        if ("document".equals(contentType) || "object".equals(contentType)) {
+        if (("document".equals(contentType) || "object".equals(contentType)) && hasContent()) {
             ObjectDetailObservables.loadObjectContent(this);
         }
         ObjectDetailObservables.loadObjectProperties(this);
@@ -94,6 +109,11 @@ public class ObjectDetailFragment extends ObjectBaseFragment {
         }
     }
 
+    private boolean hasContent() {
+        return restObject.getProperties().containsKey(DctmPropertyName.R_CONTENT_SIZE)
+                && ((int) restObject.getProperties().get(DctmPropertyName.R_CONTENT_SIZE)) > 0;
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -101,7 +121,7 @@ public class ObjectDetailFragment extends ObjectBaseFragment {
                 if (menuItemId == R.id.check_in_major || menuItemId == R.id.check_in_minor || menuItemId == R.id.check_in_branch)
                     ObjectDetailObservables.checkIn(this);
                 else
-                    ObjectDetailObservables.updateObject(this);
+                    ObjectDetailObservables.updateObject(this, sourceAdapter, sourceUiInterface);
         }
         return true;
     }

@@ -16,7 +16,9 @@ import com.emc.documentum.rest.client.sample.model.RestObject;
 import com.emc.documentum.rest.client.sample.model.plain.PlainRestObject;
 import com.opentext.documentum.rest.sample.android.MainActivity;
 import com.opentext.documentum.rest.sample.android.R;
+import com.opentext.documentum.rest.sample.android.adapters.SysObjectListBaseAdapter;
 import com.opentext.documentum.rest.sample.android.enums.DctmPropertyName;
+import com.opentext.documentum.rest.sample.android.fragments.BaseUIInterface;
 import com.opentext.documentum.rest.sample.android.fragments.ObjectBaseFragment;
 import com.opentext.documentum.rest.sample.android.fragments.ObjectDetailFragment;
 import com.opentext.documentum.rest.sample.android.items.ObjectDetailItem;
@@ -130,7 +132,9 @@ public class ObjectDetailObservables {
         });
     }
 
-    public static void updateObject(final ObjectDetailFragment fragment) {
+    public static void updateObject(final ObjectDetailFragment fragment,
+                                    final SysObjectListBaseAdapter sourceAdapter,
+                                    final BaseUIInterface sourceUiInterface) {
         Observable.create(new Observable.OnSubscribe<Object>() {
             @Override
             public void call(Subscriber<? super Object> subscriber) {
@@ -158,7 +162,6 @@ public class ObjectDetailObservables {
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Object>() {
             @Override
             public void onCompleted() {
-
             }
 
             @Override
@@ -169,8 +172,10 @@ public class ObjectDetailObservables {
 
             @Override
             public void onNext(Object o) {
-                Toast.makeText(fragment.getContext(), "update successfully, please refresh", Toast.LENGTH_LONG).show();
                 ((MainActivity) fragment.getActivity()).removeTmpFragment(fragment);
+                //todo: refresh
+                SysNaviagtionObservables.refresh(sourceAdapter, sourceUiInterface);
+                Toast.makeText(fragment.getContext(), "update succeeded", Toast.LENGTH_LONG).show();
             }
         });
     }

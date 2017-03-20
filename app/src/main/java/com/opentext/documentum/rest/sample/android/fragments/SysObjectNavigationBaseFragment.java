@@ -128,13 +128,20 @@ public abstract class SysObjectNavigationBaseFragment extends BaseFragment imple
     }
 
     public void addObjectDetailFragment(EntryItem entryItem) {
+        SysObjectListBaseAdapter adapter = adapters.get(adapters.size() - 1);
         getActivity().findViewById(R.id.back_button).setVisibility(View.VISIBLE);
         ((MainActivity) getActivity()).addStringAndResetToolbar(entryItem.entry.getTitle());
         String contentType;
         if (entryItem.entry.getContentObject().getName() == null)
             contentType = DctmObjectType.DM_NULL;
         else contentType = entryItem.entry.getContentObject().getName();
-        ((MainActivity) getActivity()).attachTmpFragment(ObjectDetailFragment.newInstance(entryItem.entry.getId(), contentType, entryItem.entry.getContentObject()));
+        ((MainActivity) getActivity()).attachTmpFragment(ObjectDetailFragment.newInstance(
+                entryItem.entry.getId(),
+                contentType,
+                entryItem.entry.getContentObject(),
+                adapter,
+                this
+        ));
     }
 
     @Override

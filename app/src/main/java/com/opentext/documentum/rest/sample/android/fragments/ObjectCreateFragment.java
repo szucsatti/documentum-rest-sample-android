@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.opentext.documentum.rest.sample.android.R;
+import com.opentext.documentum.rest.sample.android.adapters.SysObjectListBaseAdapter;
 import com.opentext.documentum.rest.sample.android.enums.DctmModelType;
 import com.opentext.documentum.rest.sample.android.enums.DctmPropertyName;
 import com.opentext.documentum.rest.sample.android.items.ObjectDetailItem;
@@ -19,31 +20,55 @@ import com.opentext.documentum.rest.sample.android.observables.ObjectCreateObser
 public class ObjectCreateFragment extends ObjectBaseFragment {
     public static String KEY_ITEM_ID = "ID";
     int menuItemId;
+    SysObjectListBaseAdapter sourceAdapter;
+    BaseUIInterface sourceUiInterface;
 
-    public static ObjectCreateFragment newInstance(String id, int menuItemId) {
+    public static ObjectCreateFragment newInstance(String id,
+                                                   int menuItemId,
+                                                   final SysObjectListBaseAdapter adapter,
+                                                   final BaseUIInterface baseUIInterface) {
         ObjectCreateFragment instance = new ObjectCreateFragment();
         Bundle args = new Bundle();
         args.putString(KEY_ID, id);
         args.putInt(KEY_ITEM_ID, menuItemId);
         instance.setArguments(args);
+        instance.sourceAdapter = adapter;
+        instance.sourceUiInterface = baseUIInterface;
         return instance;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        titleView.setVisibility(View.VISIBLE);
         switch (menuItemId) {
             case R.id.create_cabinet:
-            case R.id.create_folder:
-            case R.id.create_document:
+                titleView.setText(getString(R.string.new_cabinet));
                 updateAdapterItems(new ObjectDetailItem[]{
                                 new ObjectDetailItem(DctmModelType.OBJECT, DctmPropertyName.OBJECT_NAME, ""),
                                 new ObjectDetailItem(DctmModelType.OBJECT, DctmPropertyName.TITLE, ""),
                                 new ObjectDetailItem(DctmModelType.OBJECT, DctmPropertyName.SUBJECT, "")},
                         true);
-                if (menuItemId == R.id.create_document) downloadButton.setVisibility(View.GONE);
+                break;
+            case R.id.create_folder:
+                titleView.setText(getString(R.string.new_folder));
+                updateAdapterItems(new ObjectDetailItem[]{
+                                new ObjectDetailItem(DctmModelType.OBJECT, DctmPropertyName.OBJECT_NAME, ""),
+                                new ObjectDetailItem(DctmModelType.OBJECT, DctmPropertyName.TITLE, ""),
+                                new ObjectDetailItem(DctmModelType.OBJECT, DctmPropertyName.SUBJECT, "")},
+                        true);
+                break;
+            case R.id.create_document:
+                titleView.setText(getString(R.string.new_document));
+                updateAdapterItems(new ObjectDetailItem[]{
+                                new ObjectDetailItem(DctmModelType.OBJECT, DctmPropertyName.OBJECT_NAME, ""),
+                                new ObjectDetailItem(DctmModelType.OBJECT, DctmPropertyName.TITLE, ""),
+                                new ObjectDetailItem(DctmModelType.OBJECT, DctmPropertyName.SUBJECT, "")},
+                        true);
+                downloadButton.setVisibility(View.GONE);
                 break;
             case R.id.create_user:
+                titleView.setText(getString(R.string.new_user));
                 updateAdapterItems(new ObjectDetailItem[]{
                                 new ObjectDetailItem(DctmModelType.USER, DctmPropertyName.USER_NAME, ""),
                                 new ObjectDetailItem(DctmModelType.USER, DctmPropertyName.USER_LOGIN_NAME, ""),
@@ -53,6 +78,7 @@ public class ObjectCreateFragment extends ObjectBaseFragment {
                         true);
                 break;
             case R.id.create_group:
+                titleView.setText(getString(R.string.new_group));
                 updateAdapterItems(new ObjectDetailItem[]{
                                 new ObjectDetailItem(DctmModelType.GROUP, DctmPropertyName.GROUP_NAME, ""),
                                 new ObjectDetailItem(DctmModelType.GROUP, DctmPropertyName.DESCRIPTION_GROUP, ""),
@@ -73,9 +99,9 @@ public class ObjectCreateFragment extends ObjectBaseFragment {
         switch (item.getItemId()) {
             case R.id.ok:
                 if (menuItemId == R.id.check_in_major || menuItemId == R.id.check_in_minor || menuItemId == R.id.check_in_branch)
-                    ObjectCreateObservables.checkIn(this);
+                    ObjectCreateObservables.checkIn(this, sourceAdapter, sourceUiInterface);
                 else if (menuItemId == R.id.create_cabinet || menuItemId == R.id.create_folder || menuItemId == R.id.create_document || menuItemId == R.id.create_user || menuItemId == R.id.create_group)
-                    ObjectCreateObservables.create(this);
+                    ObjectCreateObservables.create(this, sourceAdapter, sourceUiInterface);
                 else
                     ;
         }

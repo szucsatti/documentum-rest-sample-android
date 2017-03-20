@@ -125,7 +125,11 @@ public class UsersFragment extends SysObjectNavigationBaseFragment {
         UsersListAdapter adapter = (UsersListAdapter) adapters.get(adapters.size() - 1);
         switch (item.getItemId()) {
             case R.id.create_user:
-                ((MainActivity) getActivity()).attachTmpFragment(ObjectCreateFragment.newInstance(adapter.getEntranceObjectId(), R.id.create_user));
+                ((MainActivity) getActivity()).attachTmpFragment(ObjectCreateFragment.newInstance(
+                        adapter.getEntranceObjectId(),
+                        R.id.create_user,
+                        adapter,
+                        this));
                 break;
             case R.id.refresh_menu:
                 SysNaviagtionObservables.refresh(adapter, this);

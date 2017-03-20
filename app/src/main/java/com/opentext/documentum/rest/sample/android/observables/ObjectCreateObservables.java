@@ -12,6 +12,8 @@ import com.emc.documentum.rest.client.sample.model.RestObject;
 import com.emc.documentum.rest.client.sample.model.plain.PlainRestObject;
 import com.opentext.documentum.rest.sample.android.MainActivity;
 import com.opentext.documentum.rest.sample.android.R;
+import com.opentext.documentum.rest.sample.android.adapters.SysObjectListBaseAdapter;
+import com.opentext.documentum.rest.sample.android.fragments.BaseUIInterface;
 import com.opentext.documentum.rest.sample.android.fragments.ObjectCreateFragment;
 import com.opentext.documentum.rest.sample.android.util.AppDCTMClientBuilder;
 
@@ -27,7 +29,9 @@ import rx.schedulers.Schedulers;
 public class ObjectCreateObservables {
     public static final String TAG = "ObjectCreateObservables";
 
-    public static void create(final ObjectCreateFragment objectCreateFragment) {
+    public static void create(final ObjectCreateFragment objectCreateFragment,
+                              final SysObjectListBaseAdapter sourceAdapter,
+                              final BaseUIInterface sourceUiInterface) {
         Observable.create(new Observable.OnSubscribe<Object>() {
             @Override
             public void call(Subscriber<? super Object> subscriber) {
@@ -67,7 +71,6 @@ public class ObjectCreateObservables {
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Object>() {
             @Override
             public void onCompleted() {
-
             }
 
             @Override
@@ -78,14 +81,16 @@ public class ObjectCreateObservables {
 
             @Override
             public void onNext(Object o) {
-                Toast.makeText(objectCreateFragment.getContext(), "create successfully, please refresh", Toast.LENGTH_LONG).show();
                 ((MainActivity) objectCreateFragment.getActivity()).removeTmpFragment(objectCreateFragment);
-                //TODO: how to auto-refresh
+                SysNaviagtionObservables.refresh(sourceAdapter, sourceUiInterface);
+                Toast.makeText(objectCreateFragment.getContext(), "create succeeded", Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    public static void checkIn(final ObjectCreateFragment objectCreateFragment) {
+    public static void checkIn(final ObjectCreateFragment objectCreateFragment,
+                               final SysObjectListBaseAdapter sourceAdapter,
+                               final BaseUIInterface sourceUiInterface) {
         Observable.create(new Observable.OnSubscribe<Object>() {
             @Override
             public void call(Subscriber<? super Object> subscriber) {
@@ -107,7 +112,8 @@ public class ObjectCreateObservables {
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Object>() {
             @Override
             public void onCompleted() {
-
+                //todo: refresh here
+                SysNaviagtionObservables.refresh(sourceAdapter, sourceUiInterface);
             }
 
             @Override
@@ -118,7 +124,8 @@ public class ObjectCreateObservables {
 
             @Override
             public void onNext(Object o) {
-                Toast.makeText(objectCreateFragment.getContext(), "check in successfully", Toast.LENGTH_LONG).show();
+                SysNaviagtionObservables.refresh(sourceAdapter, sourceUiInterface);
+                Toast.makeText(objectCreateFragment.getContext(), "checkin succeeded", Toast.LENGTH_LONG).show();
             }
         });
     }

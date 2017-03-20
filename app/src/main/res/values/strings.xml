@@ -11,6 +11,12 @@
     <string name="remember_me_name">Remember me</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="properties">PROPERTIES</string>
+    <string name="new_cabinet">NEW CABINET</string>
+    <string name="new_folder">NEW FOLDER</string>
+    <string name="new_document">NEW DOCUMENT</string>
+    <string name="new_user">NEW USER</string>
+    <string name="new_group">NEW GROUP</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

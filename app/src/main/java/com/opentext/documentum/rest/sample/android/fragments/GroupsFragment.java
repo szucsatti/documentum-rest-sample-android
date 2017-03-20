@@ -179,7 +179,12 @@ public class GroupsFragment extends SysObjectNavigationBaseFragment {
         GroupsListAdapter adapter = (GroupsListAdapter) adapters.get(adapters.size() - 1);
         switch (item.getItemId()) {
             case R.id.create_group:
-                ((MainActivity) getActivity()).attachTmpFragment(ObjectCreateFragment.newInstance(adapter.getEntranceObjectId(), R.id.create_group));
+                ((MainActivity) getActivity()).attachTmpFragment(
+                        ObjectCreateFragment.newInstance(
+                                adapter.getEntranceObjectId(),
+                                R.id.create_group,
+                                adapter,
+                                this));
                 break;
             case R.id.refresh_menu:
                 SysNaviagtionObservables.refresh(adapter, this);

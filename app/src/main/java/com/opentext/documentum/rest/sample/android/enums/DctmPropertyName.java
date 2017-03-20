@@ -16,6 +16,7 @@ public class DctmPropertyName {
     public static final String R_OBJECT_ID = "r_object_id";
     public static final String R_MODIFY_DATE = "r_modify_date";
     public static final String R_CREATION_DATE = "r_creation_date";
+    public static final String R_CONTENT_SIZE = "r_content_size";
 
     // user
     public static final String USER_LOGIN_NAME = "user_login_name";
