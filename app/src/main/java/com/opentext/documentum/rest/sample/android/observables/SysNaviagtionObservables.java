@@ -38,9 +38,9 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-import static com.opentext.documentum.rest.sample.android.util.ViewListHelper.GROUP_VIEW_LIST;
-import static com.opentext.documentum.rest.sample.android.util.ViewListHelper.SYSOBJECT_VIEW_LIST;
-import static com.opentext.documentum.rest.sample.android.util.ViewListHelper.USER_VIEW_LIST;
+import static com.opentext.documentum.rest.sample.android.util.TypeInfoHelper.GROUP_VIEW_LIST;
+import static com.opentext.documentum.rest.sample.android.util.TypeInfoHelper.SYSOBJECT_VIEW_LIST;
+import static com.opentext.documentum.rest.sample.android.util.TypeInfoHelper.USER_VIEW_LIST;
 
 
 public class SysNaviagtionObservables {

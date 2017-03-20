@@ -22,7 +22,7 @@ import com.emc.documentum.rest.client.sample.model.RestObject;
 import com.opentext.documentum.rest.sample.android.MainActivity;
 import com.opentext.documentum.rest.sample.android.R;
 import com.opentext.documentum.rest.sample.android.adapters.CabinetsListAdapter;
-import com.opentext.documentum.rest.sample.android.enums.DctmObjectContentType;
+import com.opentext.documentum.rest.sample.android.enums.DctmObjectType;
 import com.opentext.documentum.rest.sample.android.enums.FeedType;
 import com.opentext.documentum.rest.sample.android.items.EntryItem;
 import com.opentext.documentum.rest.sample.android.observables.SysNaviagtionObservables;
@@ -62,7 +62,7 @@ public class CabinetsFragment extends SysObjectNavigationBaseFragment {
                     ids.add(entry.getId());
                     String contentType;
                     if (entry.getContentObject().getType() == null)
-                        contentType = DctmObjectContentType.DM_NULL;
+                        contentType = DctmObjectType.DM_NULL;
                     else contentType = entry.getContentObject().getType();
                     contentTypes.add(contentType);
                     SysNaviagtionObservables.refreshObject(getCurrentAdapter(), CabinetsFragment.this, entry.getContentObject());

@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.opentext.documentum.rest.sample.android.R;
+import com.opentext.documentum.rest.sample.android.enums.DctmModelType;
 import com.opentext.documentum.rest.sample.android.enums.DctmPropertyName;
 import com.opentext.documentum.rest.sample.android.items.ObjectDetailItem;
 import com.opentext.documentum.rest.sample.android.observables.ObjectCreateObservables;
@@ -31,31 +32,31 @@ public class ObjectCreateFragment extends ObjectBaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        // todo: check what's the property to be set
         switch (menuItemId) {
             case R.id.create_cabinet:
             case R.id.create_folder:
             case R.id.create_document:
                 updateAdapterItems(new ObjectDetailItem[]{
-                                new ObjectDetailItem(
-                                        DctmPropertyName.OBJECT_NAME, "")},
+                                new ObjectDetailItem(DctmModelType.OBJECT, DctmPropertyName.OBJECT_NAME, ""),
+                                new ObjectDetailItem(DctmModelType.OBJECT, DctmPropertyName.TITLE, ""),
+                                new ObjectDetailItem(DctmModelType.OBJECT, DctmPropertyName.SUBJECT, "")},
                         true);
                 if (menuItemId == R.id.create_document) downloadButton.setVisibility(View.GONE);
                 break;
             case R.id.create_user:
                 updateAdapterItems(new ObjectDetailItem[]{
-                                new ObjectDetailItem(DctmPropertyName.USER_NAME, ""),
-                                new ObjectDetailItem(DctmPropertyName.USER_LOGIN_NAME, ""),
-                                new ObjectDetailItem(DctmPropertyName.USER_ADDRESS, ""),
-                                new ObjectDetailItem(DctmPropertyName.USER_SOURCE, "inline password"),
-                                new ObjectDetailItem(DctmPropertyName.USER_PASSWORD, "")},
+                                new ObjectDetailItem(DctmModelType.USER, DctmPropertyName.USER_NAME, ""),
+                                new ObjectDetailItem(DctmModelType.USER, DctmPropertyName.USER_LOGIN_NAME, ""),
+                                new ObjectDetailItem(DctmModelType.USER, DctmPropertyName.USER_ADDRESS, ""),
+                                new ObjectDetailItem(DctmModelType.USER, DctmPropertyName.USER_SOURCE, "inline password"),
+                                new ObjectDetailItem(DctmModelType.USER, DctmPropertyName.USER_PASSWORD, "")},
                         true);
                 break;
             case R.id.create_group:
-                updateAdapterItems(createObjectDetailItems(
-                        DctmPropertyName.GROUP_NAME, "",
-                        DctmPropertyName.DESCRIPTION_GROUP, "",
-                        DctmPropertyName.GROUP_DISPLAY_NAME, ""),
+                updateAdapterItems(new ObjectDetailItem[]{
+                                new ObjectDetailItem(DctmModelType.GROUP, DctmPropertyName.GROUP_NAME, ""),
+                                new ObjectDetailItem(DctmModelType.GROUP, DctmPropertyName.DESCRIPTION_GROUP, ""),
+                                new ObjectDetailItem(DctmModelType.GROUP, DctmPropertyName.GROUP_DISPLAY_NAME, "")},
                         true);
                 setErrorContent();
                 buttons.setVisibility(View.GONE);
@@ -91,12 +92,5 @@ public class ObjectCreateFragment extends ObjectBaseFragment {
 
     public int getMenuItemId() {
         return menuItemId;
-    }
-
-    private ObjectDetailItem[] createObjectDetailItems(String... args) {
-        ObjectDetailItem[] items = new ObjectDetailItem[args.length / 2];
-        for (int i = 0; i < args.length / 2; ++i)
-            items[i] = new ObjectDetailItem(args[2 * i], args[2 * i + 1]);
-        return items;
     }
 }

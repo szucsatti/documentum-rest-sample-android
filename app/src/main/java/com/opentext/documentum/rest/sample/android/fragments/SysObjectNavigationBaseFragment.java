@@ -20,8 +20,8 @@ import com.opentext.documentum.rest.sample.android.R;
 import com.opentext.documentum.rest.sample.android.adapters.CabinetsListAdapter;
 import com.opentext.documentum.rest.sample.android.adapters.GroupsListAdapter;
 import com.opentext.documentum.rest.sample.android.adapters.SysObjectListBaseAdapter;
-import com.opentext.documentum.rest.sample.android.enums.DctmObjectContentType;
-import com.opentext.documentum.rest.sample.android.enums.DctmObjectName;
+import com.opentext.documentum.rest.sample.android.enums.DctmModelType;
+import com.opentext.documentum.rest.sample.android.enums.DctmObjectType;
 import com.opentext.documentum.rest.sample.android.items.EntryItem;
 import com.opentext.documentum.rest.sample.android.observables.SysNaviagtionObservables;
 
@@ -99,8 +99,8 @@ public abstract class SysObjectNavigationBaseFragment extends BaseFragment imple
         EntryItem entryItem = (EntryItem) parent.getItemAtPosition(position);
         // todo: add Name type
         switch (entryItem.entry.getContentObject().getName()) {
-            case DctmObjectName.CABINET:
-            case DctmObjectName.OBJECT:
+            case DctmModelType.CABINET:
+            case DctmModelType.OBJECT:
                 String dm_type = (String) entryItem.entry.getContentObject().getProperties().get("r_object_type");
                 if (dm_type.equals("dm_folder") || dm_type.equals("dm_cabinet")) {
                     CabinetsListAdapter newAdapter = new CabinetsListAdapter(getContext(), R.layout.item_cabinetslist, entryItem.entry.getContentObject(), entryItem.entry.getId(), this);
@@ -113,10 +113,10 @@ public abstract class SysObjectNavigationBaseFragment extends BaseFragment imple
                     addObjectDetailFragment(entryItem);
                 }
                 break;
-            case DctmObjectName.USER:
+            case DctmModelType.USER:
                 addObjectDetailFragment(entryItem);
                 break;
-            case DctmObjectName.GROUP:
+            case DctmModelType.GROUP:
                 GroupsListAdapter newAdapter = new GroupsListAdapter(getContext(), R.layout.item_cabinetslist, entryItem.entry.getId(), this);
                 adapters.add(newAdapter);
                 ((ListView) mainComponent).setAdapter(newAdapter);
@@ -132,7 +132,7 @@ public abstract class SysObjectNavigationBaseFragment extends BaseFragment imple
         ((MainActivity) getActivity()).addStringAndResetToolbar(entryItem.entry.getTitle());
         String contentType;
         if (entryItem.entry.getContentObject().getName() == null)
-            contentType = DctmObjectContentType.DM_NULL;
+            contentType = DctmObjectType.DM_NULL;
         else contentType = entryItem.entry.getContentObject().getName();
         ((MainActivity) getActivity()).attachTmpFragment(ObjectDetailFragment.newInstance(entryItem.entry.getId(), contentType, entryItem.entry.getContentObject()));
     }

@@ -8,10 +8,10 @@
         android:id="@+id/move_to_group_menu"
         android:icon="@drawable/vic_addto_group"
         android:title="Add to group"
-        app:showAsAction="ifRoom|withText" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/delete_user_menu"
         android:icon="@drawable/vic_del"
         android:title="Delete the user"
-        app:showAsAction="ifRoom|withText"></item>
+        app:showAsAction="always" />
 </menu>

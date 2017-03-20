@@ -5,21 +5,29 @@
 package com.opentext.documentum.rest.sample.android.items;
 
 
+import com.opentext.documentum.rest.sample.android.util.TypeInfoHelper;
+
 public class ObjectDetailItem {
-    private String label;
+    private String type;
+    private String property;
     private String content;
 
-    public ObjectDetailItem(String label, String content) {
-        this.label = label;
+    public ObjectDetailItem(String type, String property, String content) {
+        this.type = type;
+        this.property = property;
         this.content = content;
     }
 
-    public String getLabel() {
-        return label;
+    public String getType() {
+        return type;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
+    public String getProperty() {
+        return property;
+    }
+
+    public String getLabel() {
+        return TypeInfoHelper.INSTANCE.getLabel(type, property);
     }
 
     public String getContent() {

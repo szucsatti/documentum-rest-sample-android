@@ -15,7 +15,7 @@ import android.view.View;
 import com.emc.documentum.rest.client.sample.model.RestObject;
 import com.opentext.documentum.rest.sample.android.MainActivity;
 import com.opentext.documentum.rest.sample.android.R;
-import com.opentext.documentum.rest.sample.android.enums.DctmObjectContentType;
+import com.opentext.documentum.rest.sample.android.enums.DctmObjectType;
 import com.opentext.documentum.rest.sample.android.observables.ObjectDetailObservables;
 import com.opentext.documentum.rest.sample.android.util.AppCurrentUser;
 
@@ -75,7 +75,7 @@ public class ObjectDetailFragment extends ObjectBaseFragment {
             }
         });
         switch (contentType) {
-            case DctmObjectContentType.DM_DOCUMENT:
+            case DctmObjectType.DM_DOCUMENT:
                 break;
             default:
                 setNullContent();

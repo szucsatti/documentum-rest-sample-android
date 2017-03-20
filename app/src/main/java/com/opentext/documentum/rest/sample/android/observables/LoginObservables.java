@@ -18,6 +18,7 @@ import com.opentext.documentum.rest.sample.android.LoginActivity;
 import com.opentext.documentum.rest.sample.android.util.AccountHelper;
 import com.opentext.documentum.rest.sample.android.util.AppCurrentUser;
 import com.opentext.documentum.rest.sample.android.util.AppDCTMClientBuilder;
+import com.opentext.documentum.rest.sample.android.util.TypeInfoHelper;
 
 import java.util.concurrent.TimeUnit;
 
@@ -113,7 +114,18 @@ public class LoginObservables {
             public void call(Subscriber<? super Object> subscriber) {
                 DCTMRestClient client = AppDCTMClientBuilder.build();
                 client.getRepository();
+                // save current user info
                 AppCurrentUser.set(client.getCurrentUser());
+                // init type meta
+                if (!TypeInfoHelper.INSTANCE.hasType("dm_user")) {
+                    TypeInfoHelper.INSTANCE.setupTypeInfo(client.getType("dm_user"));
+                }
+                if (!TypeInfoHelper.INSTANCE.hasType("dm_group")) {
+                    TypeInfoHelper.INSTANCE.setupTypeInfo(client.getType("dm_group"));
+                }
+                if (!TypeInfoHelper.INSTANCE.hasType("dm_sysobject")) {
+                    TypeInfoHelper.INSTANCE.setupTypeInfo(client.getType("dm_sysobject"));
+                }
                 subscriber.onNext(null);
                 subscriber.onCompleted();
 

@@ -194,12 +194,12 @@ public class ObjectBaseFragment extends Fragment {
         this.setListViewHeightBasedOnChildren();
     }
 
-    public Map<String, String> getChangableProperties() {
-        return adapter.getChangableProperties();
+    public Map<String, String> getEditableProperties() {
+        return adapter.filterEditable();
     }
 
-    public Map<String, String> getInitiableProperties() {
-        return adapter.getInitiableProperties();
+    public Map<String, String> getProperties() {
+        return adapter.getProperties();
     }
 
     public void setTextContent(byte[] content) {

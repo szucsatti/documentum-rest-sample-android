@@ -32,7 +32,7 @@ public class ObjectCreateObservables {
             @Override
             public void call(Subscriber<? super Object> subscriber) {
                 DCTMRestClient client = AppDCTMClientBuilder.build();
-                String[] args = getArgs(objectCreateFragment.getInitiableProperties());
+                String[] args = getArgs(objectCreateFragment.getProperties());
                 // todo: here is the point to distinguish the management
                 // todo: create_user_under_group
                 switch (objectCreateFragment.getMenuItemId()) {
@@ -51,6 +51,7 @@ public class ObjectCreateObservables {
                         client.createUser(new PlainRestObject(args));
                         break;
                     case R.id.create_cabinet:
+                        //todo;
                         break;
                     case R.id.create_group:
                         if (objectCreateFragment.getObjectId() == null)
@@ -89,7 +90,7 @@ public class ObjectCreateObservables {
             @Override
             public void call(Subscriber<? super Object> subscriber) {
                 DCTMRestClient client = AppDCTMClientBuilder.build();
-                String[] args = getArgs(objectCreateFragment.getChangableProperties());
+                String[] args = getArgs(objectCreateFragment.getEditableProperties());
                 switch (objectCreateFragment.getMenuItemId()) {
                     case R.id.check_in_major:
                         client.checkinNextMajor(client.getObject(objectCreateFragment.getObjectId()), new PlainRestObject(args), objectCreateFragment.getContentBytes(), null);

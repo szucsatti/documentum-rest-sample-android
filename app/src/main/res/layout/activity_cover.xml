@@ -31,7 +31,7 @@
                 android:maxLines="1"
                 android:textAlignment="center"
                 android:textColor="@android:color/holo_green_light"
-                android:textSize="36sp"
+                android:textSize="30sp"
                 android:textStyle="bold|italic" />
         </RelativeLayout>
 

@@ -8,10 +8,10 @@
         android:id="@+id/create_group"
         android:icon="@drawable/vic_addto_group_w"
         android:title="Create"
-        app:showAsAction="ifRoom|withText" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/refresh_menu"
         android:icon="@drawable/vic_refresh_w"
         android:title="Refresh"
-        app:showAsAction="ifRoom|withText" />
+        app:showAsAction="always" />
 </menu>

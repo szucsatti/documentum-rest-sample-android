@@ -109,10 +109,13 @@ public class ObjectDetailObservables {
                 DCTMRestClient client = AppDCTMClientBuilder.build();
                 try {
                     RestObject object = fragment.getRestObject() == null ? client.getObject(fragment.getObjectId()) : fragment.getRestObject();
+                    String type = object.getName();
                     ObjectDetailItem[] items = new ObjectDetailItem[object.getProperties().size()];
                     int idx = 0;
-                    for (String k : object.getProperties().keySet())
-                        items[idx++] = new ObjectDetailItem(k, object.getProperties().get(k) == null ? "" : object.getProperties().get(k).toString());
+                    for (String k : object.getProperties().keySet()) {
+                        String v = object.getProperties().get(k) == null ? "" : object.getProperties().get(k).toString();
+                        items[idx++] = new ObjectDetailItem(type, k, v);
+                    }
                     subscriber.onNext(items);
                 } catch (Exception e) {
                     subscriber.onError(e);
@@ -131,7 +134,7 @@ public class ObjectDetailObservables {
         Observable.create(new Observable.OnSubscribe<Object>() {
             @Override
             public void call(Subscriber<? super Object> subscriber) {
-                Map<String, String> propers = fragment.getChangableProperties();
+                Map<String, String> propers = fragment.getEditableProperties();
                 String[] args;
                 int length = propers.size();
                 if (propers.containsKey(DctmPropertyName.USER_NAME))
@@ -214,7 +217,7 @@ public class ObjectDetailObservables {
             @Override
             public void call(Subscriber<? super Object> subscriber) {
                 DCTMRestClient client = AppDCTMClientBuilder.build();
-                String[] args = getArgs(fragment.getChangableProperties());
+                String[] args = getArgs(fragment.getEditableProperties());
                 switch (fragment.getMenuItemId()) {
                     case R.id.check_in_major:
                         client.checkinNextMajor(client.getObject(fragment.getObjectId()), new PlainRestObject(args), fragment.getContentBytes(), null);
