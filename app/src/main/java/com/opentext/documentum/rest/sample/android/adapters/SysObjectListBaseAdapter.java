@@ -34,7 +34,7 @@ public abstract class SysObjectListBaseAdapter extends ArrayAdapter<EntryItem> {
 
     List<Feed<RestObject>> feeds;
     List<EntryItem> entryList;
-    Set<Integer> selectedPostions;
+    Set<Integer> selectedPositions;
     Context context;
     int resourceId;
     String entranceObjectId;
@@ -48,7 +48,7 @@ public abstract class SysObjectListBaseAdapter extends ArrayAdapter<EntryItem> {
         this.resourceId = resource;
         this.context = context;
         this.entryList = new LinkedList<>();
-        this.selectedPostions = new HashSet<>();
+        this.selectedPositions = new HashSet<>();
         this.feeds = new LinkedList<>();
         this.entranceObject = entranceObject;
         this.entranceObjectId = entranceObjectId;
@@ -80,31 +80,31 @@ public abstract class SysObjectListBaseAdapter extends ArrayAdapter<EntryItem> {
     }
 
     public void addSelectId(int pos) {
-        this.selectedPostions.add(pos);
+        this.selectedPositions.add(pos);
     }
 
     public void removeSelectedId(int pos) {
-        if (this.selectedPostions.contains(pos))
-            this.selectedPostions.remove(pos);
+        if (this.selectedPositions.contains(pos))
+            this.selectedPositions.remove(pos);
     }
 
     public boolean containsSeleted(int pos) {
-        for (int p : this.selectedPostions)
+        for (int p : this.selectedPositions)
             if (p == pos)
                 return true;
         return false;
     }
 
     public void clearSelected() {
-        this.selectedPostions.clear();
+        this.selectedPositions.clear();
     }
 
     public Set<Integer> getSelectedSet() {
-        return this.selectedPostions;
+        return this.selectedPositions;
     }
 
     public void addFeed(Feed<RestObject> feed) {
-        if (feed == null || feed.getEntries() == null)
+        if (feed == null)
             return;
         this.feeds.add(feed);
         for (Entry<RestObject> entry : feed.getEntries())

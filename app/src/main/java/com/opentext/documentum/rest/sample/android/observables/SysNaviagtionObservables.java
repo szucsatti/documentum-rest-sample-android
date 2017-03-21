@@ -569,7 +569,7 @@ public class SysNaviagtionObservables {
                     baseUIInterface.setEmptyBackground();
                 else
                     baseUIInterface.setMainComponentBackground();
-                ((SysObjectNavigationBaseFragment) baseUIInterface).restoreLocation();
+                baseUIInterface.restoreLocation();
                 if (dummy.size() == 0)
                     toastSuccess(baseUIInterface, "refresh");
                 else {

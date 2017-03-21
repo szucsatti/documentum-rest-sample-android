@@ -80,7 +80,7 @@ public class CabinetsListAdapter extends SysObjectListBaseAdapter {
             }
         });
 
-        if (this.selectedPostions.contains(position))
+        if (this.selectedPositions.contains(position))
             convertView.setBackgroundColor(context.getResources().getColor(R.color.selected_cabinet_item));
         else
             convertView.setBackgroundColor(context.getResources().getColor(R.color.pureWhite));
