@@ -217,7 +217,9 @@ public class ObjectDetailObservables {
         });
     }
 
-    public static void checkIn(final ObjectDetailFragment fragment) {
+    public static void checkIn(final ObjectDetailFragment fragment,
+                               final SysObjectListBaseAdapter sourceAdapter,
+                               final BaseUIInterface sourceUiInterface) {
         Observable.create(new Observable.OnSubscribe<Object>() {
             @Override
             public void call(Subscriber<? super Object> subscriber) {
@@ -250,8 +252,9 @@ public class ObjectDetailObservables {
 
             @Override
             public void onNext(Object o) {
-                Toast.makeText(fragment.getContext(), "check in successfully, please refresh", Toast.LENGTH_LONG).show();
                 ((MainActivity) fragment.getActivity()).removeTmpFragment(fragment);
+                SysNaviagtionObservables.refresh(sourceAdapter, sourceUiInterface);
+                Toast.makeText(fragment.getContext(), "checkin succeeded", Toast.LENGTH_LONG).show();
             }
         });
     }

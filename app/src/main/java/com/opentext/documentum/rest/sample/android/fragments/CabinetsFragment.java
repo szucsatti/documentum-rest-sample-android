@@ -50,6 +50,7 @@ public class CabinetsFragment extends SysObjectNavigationBaseFragment {
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         listView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
             List<String> ids = new LinkedList<String>();
+            List<RestObject> objects = new LinkedList<RestObject>();
             List<String> contentTypes = new LinkedList<String>();
 
             @Override
@@ -60,6 +61,7 @@ public class CabinetsFragment extends SysObjectNavigationBaseFragment {
                     ((CabinetsListAdapter) listView.getAdapter()).addSelectId(position);
                     Entry<RestObject> entry = ((EntryItem) listView.getAdapter().getItem(position)).entry;
                     ids.add(entry.getId());
+                    objects.add(entry.getContentObject());
                     String contentType;
                     if (entry.getContentObject().getType() == null)
                         contentType = DctmObjectType.DM_NULL;
@@ -71,6 +73,7 @@ public class CabinetsFragment extends SysObjectNavigationBaseFragment {
                     for (int i = ids.size() - 1; i >= 0; --i)
                         if (ids.get(i).equals(((EntryItem) listView.getAdapter().getItem(position)).entry.getId())) {
                             ids.remove(i);
+                            objects.remove(i);
                             contentTypes.remove(i);
                         }
                 }
@@ -117,32 +120,22 @@ public class CabinetsFragment extends SysObjectNavigationBaseFragment {
                             getActivity().invalidateOptionsMenu();
                             break;
                         case R.id.check_out_menu:
-                            SysNaviagtionObservables.checkOut(CabinetsFragment.this, idArray);
+                            SysNaviagtionObservables.checkOut(CabinetsFragment.this, idArray, adapters.get(adapters.size() - 1));
                             break;
                         case R.id.cancel_check_out:
-                            SysNaviagtionObservables.cancelCheckOut(CabinetsFragment.this, idArray);
+                            SysNaviagtionObservables.cancelCheckOut(CabinetsFragment.this, idArray, adapters.get(adapters.size() - 1));
                             break;
-                        //todo: checkin
-//                        case R.id.check_in_menu:
-//                            if (ids.size() != 1) {
-//                                Toast.makeText(getContext(), "check in one object at one time", Toast.LENGTH_SHORT).show();
-//                                flag = true;
-//                                break;
-//                            }
-//                            flag = false;
-//                            break;
                         case R.id.check_in_major:
                         case R.id.check_in_minor:
                         case R.id.check_in_branch:
-                            ((MainActivity) getActivity()).attachTmpFragment(
-                                    ObjectDetailFragment.newInstance(
-                                            idArray[0],
-                                            item.getItemId(),
-                                            "to-checkin",
-                                            contentTypes.get(0),
-                                            null,
-                                            adapter,
-                                            CabinetsFragment.this));
+                            ((MainActivity) getActivity()).attachTmpFragment(ObjectDetailFragment.newInstance(
+                                    idArray[0],
+                                    contentTypes.get(0),
+                                    objects.get(0),
+                                    item.getItemId(),
+                                    adapter,
+                                    CabinetsFragment.this
+                            ));
                             break;
                     }
                 }

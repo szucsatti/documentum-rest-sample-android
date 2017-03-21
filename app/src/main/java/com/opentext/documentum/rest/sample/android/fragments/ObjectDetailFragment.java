@@ -16,19 +16,19 @@ import com.emc.documentum.rest.client.sample.model.RestObject;
 import com.opentext.documentum.rest.sample.android.MainActivity;
 import com.opentext.documentum.rest.sample.android.R;
 import com.opentext.documentum.rest.sample.android.adapters.SysObjectListBaseAdapter;
+import com.opentext.documentum.rest.sample.android.enums.DctmModelType;
 import com.opentext.documentum.rest.sample.android.enums.DctmObjectType;
 import com.opentext.documentum.rest.sample.android.enums.DctmPropertyName;
+import com.opentext.documentum.rest.sample.android.items.ObjectDetailItem;
 import com.opentext.documentum.rest.sample.android.observables.ObjectDetailObservables;
 import com.opentext.documentum.rest.sample.android.util.AppCurrentUser;
+import com.opentext.documentum.rest.sample.android.util.RestObjectUtil;
 
 
 public class ObjectDetailFragment extends ObjectBaseFragment {
     public static final String KEY_ITEM_ID = "ID";
     public static final String KEY_CONTENT_TYPE = "CONTENT_TYPE";
-    public static final String KEY_TITLE = "TITLE";
-    public static final String KEY_REST_OBJECT = "KEY_REST_OBJECT";
     int menuItemId;
-    String title;
     String contentType;
     RestObject restObject;
     SysObjectListBaseAdapter sourceAdapter;
@@ -39,6 +39,7 @@ public class ObjectDetailFragment extends ObjectBaseFragment {
     }
 
     public static ObjectDetailFragment newInstance(String id, String contentType, RestObject restObject,
+                                                   final int menuItemId,
                                                    final SysObjectListBaseAdapter adapter,
                                                    final BaseUIInterface baseUIInterface) {
         ObjectDetailFragment instance = new ObjectDetailFragment();
@@ -46,27 +47,17 @@ public class ObjectDetailFragment extends ObjectBaseFragment {
         args.putString(KEY_ID, id);
         args.putString(KEY_CONTENT_TYPE, contentType);
         instance.setArguments(args);
-        instance.setRestObject(restObject);
+        instance.restObject = restObject;
+        instance.menuItemId = menuItemId;
         instance.sourceAdapter = adapter;
         instance.sourceUiInterface = baseUIInterface;
         return instance;
     }
 
-    public static ObjectDetailFragment newInstance(String id, int menuItemId, String title,
-                                                   String contentType, RestObject restObject,
+    public static ObjectDetailFragment newInstance(String id, String contentType, RestObject restObject,
                                                    final SysObjectListBaseAdapter adapter,
                                                    final BaseUIInterface baseUIInterface) {
-        ObjectDetailFragment instance = new ObjectDetailFragment();
-        Bundle args = new Bundle();
-        args.putString(KEY_ID, id);
-        args.putInt(KEY_ITEM_ID, menuItemId);
-        args.putString(KEY_TITLE, title);
-        args.putString(KEY_CONTENT_TYPE, contentType);
-        instance.setArguments(args);
-        instance.setRestObject(restObject);
-        instance.sourceAdapter = adapter;
-        instance.sourceUiInterface = baseUIInterface;
-        return instance;
+        return newInstance(id, contentType, restObject, 0, adapter, baseUIInterface);
     }
 
     public RestObject getRestObject() {
@@ -89,20 +80,23 @@ public class ObjectDetailFragment extends ObjectBaseFragment {
                 ((MainActivity) getActivity()).removeTmpFragment(ObjectDetailFragment.this);
             }
         });
-        switch (contentType) {
-            case DctmObjectType.DM_DOCUMENT:
-                break;
-            default:
-                setNullContent();
-                break;
-        }
-        if (("document".equals(contentType) || "object".equals(contentType)) && hasContent()) {
+        if (!DctmObjectType.DM_DOCUMENT.equals(contentType)) {
+            setNullContent();
+        } else if (hasContent()) {
             ObjectDetailObservables.loadObjectContent(this);
         }
-        ObjectDetailObservables.loadObjectProperties(this);
-        if (menuItemId == R.id.check_in_major || menuItemId == R.id.check_in_minor || menuItemId == R.id.check_in_branch)
-            ((MainActivity) getActivity()).addStringAndResetToolbar(title);
+
+        if (menuItemId == R.id.check_in_major || menuItemId == R.id.check_in_minor || menuItemId == R.id.check_in_branch) {
+            String name = RestObjectUtil.getString(restObject, DctmPropertyName.OBJECT_NAME);
+            ((MainActivity) getActivity()).addStringAndResetToolbar(name);
+            updateAdapterItems(new ObjectDetailItem[]{
+                            new ObjectDetailItem(DctmModelType.OBJECT, DctmPropertyName.OBJECT_NAME, name),
+                            new ObjectDetailItem(DctmModelType.OBJECT, DctmPropertyName.TITLE, RestObjectUtil.getString(restObject, DctmPropertyName.TITLE)),
+                            new ObjectDetailItem(DctmModelType.OBJECT, DctmPropertyName.SUBJECT, RestObjectUtil.getString(restObject, DctmPropertyName.SUBJECT))},
+                    true);
+        }
         else {
+            ObjectDetailObservables.loadObjectProperties(this);
             textView.setEnabled(false);
             txtButton.setVisibility(View.GONE);
             fileButton.setVisibility(View.GONE);
@@ -119,7 +113,7 @@ public class ObjectDetailFragment extends ObjectBaseFragment {
         switch (item.getItemId()) {
             case R.id.ok:
                 if (menuItemId == R.id.check_in_major || menuItemId == R.id.check_in_minor || menuItemId == R.id.check_in_branch)
-                    ObjectDetailObservables.checkIn(this);
+                    ObjectDetailObservables.checkIn(this, sourceAdapter, sourceUiInterface);
                 else
                     ObjectDetailObservables.updateObject(this, sourceAdapter, sourceUiInterface);
         }
@@ -142,7 +136,6 @@ public class ObjectDetailFragment extends ObjectBaseFragment {
         super.setArguments(args);
         objectId = args.getString(KEY_ID);
         menuItemId = args.getInt(KEY_ITEM_ID);
-        title = args.getString(title);
         contentType = args.getString(KEY_CONTENT_TYPE);
     }
 

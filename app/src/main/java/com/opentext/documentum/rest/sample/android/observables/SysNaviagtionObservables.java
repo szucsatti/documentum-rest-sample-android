@@ -580,7 +580,7 @@ public class SysNaviagtionObservables {
         });
     }
 
-    public static void checkOut(final CabinetsFragment fragment, final String[] idArray) {
+    public static void checkOut(final CabinetsFragment fragment, final String[] idArray, final SysObjectListBaseAdapter adapter) {
         Observable.create(new Observable.OnSubscribe<List<String>>() {
             @Override
             public void call(Subscriber<? super List<String>> subscriber) {
@@ -589,12 +589,6 @@ public class SysNaviagtionObservables {
                 BatchBuilder batchBuilder = BatchBuilder.builder(client);
                 for (String id : idArray)
                     batchBuilder.operation().checkout(client.getObject(id));
-//                    try {
-//                        client.checkout(client.getObject(id));
-//                    } catch (Exception e) {
-//                        Log.d(TAG, throwableToString(e));
-//                        failure.add(id);
-//                    }
                 try {
                     client.createBatch(batchBuilder.build());
                 } catch (Exception e) {
@@ -612,20 +606,22 @@ public class SysNaviagtionObservables {
             @Override
             public void onError(Throwable e) {
                 Log.d(TAG, throwableToString(e));
-                Toast.makeText(fragment.getContext(), "some objects may not be check out successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(fragment.getContext(), "checkout failed", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onNext(List<String> strings) {
+                SysNaviagtionObservables.refresh(adapter, fragment);
+                fragment.getActivity().invalidateOptionsMenu();
                 if (strings.size() == 0)
-                    Toast.makeText(fragment.getContext(), "check out successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(fragment.getContext(), "checkout succeeded", Toast.LENGTH_SHORT).show();
                 else
-                    Toast.makeText(fragment.getContext(), "some objects may not be check out successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(fragment.getContext(), "checkout failed", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public static void cancelCheckOut(final CabinetsFragment fragment, final String[] idArray) {
+    public static void cancelCheckOut(final CabinetsFragment fragment, final String[] idArray, final SysObjectListBaseAdapter adapter) {
         Observable.create(new Observable.OnSubscribe<List<String>>() {
             @Override
             public void call(Subscriber<? super List<String>> subscriber) {
@@ -634,11 +630,6 @@ public class SysNaviagtionObservables {
                 BatchBuilder builder = BatchBuilder.builder(client);
                 for (String id : idArray)
                     builder.operation().cancelCheckout(client.getObject(id));
-//                    try {
-//                        client.cancelCheckout(client.getObject(id));
-//                    } catch (Exception e) {
-//                        failure.add(id);
-//                    }
                 try {
                     client.createBatch(builder.build());
                 } catch (Exception e) {
@@ -656,15 +647,17 @@ public class SysNaviagtionObservables {
             @Override
             public void onError(Throwable e) {
                 Log.d(TAG, throwableToString(e));
-                Toast.makeText(fragment.getContext(), "some objects may not be cancel successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(fragment.getContext(), "cancel checkout failed", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onNext(List<String> strings) {
+                SysNaviagtionObservables.refresh(adapter, fragment);
+                fragment.getActivity().invalidateOptionsMenu();
                 if (strings.size() == 0)
-                    Toast.makeText(fragment.getContext(), "cancel successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(fragment.getContext(), "cancel checkout succeeded", Toast.LENGTH_SHORT).show();
                 else
-                    Toast.makeText(fragment.getContext(), "some objects may not be cancel successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(fragment.getContext(), "cancel checkout failed", Toast.LENGTH_SHORT).show();
             }
         });
     }
