@@ -107,8 +107,11 @@ public abstract class SysObjectListBaseAdapter extends ArrayAdapter<EntryItem> {
         if (feed == null)
             return;
         this.feeds.add(feed);
-        for (Entry<RestObject> entry : feed.getEntries())
-            this.entryList.add(new EntryItem(entry));
+        if (feed.getEntries() != null) {
+            for (Entry<RestObject> entry : feed.getEntries()) {
+                this.entryList.add(new EntryItem(entry));
+            }
+        }
     }
 
     public boolean isEmpty() {

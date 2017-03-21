@@ -19,9 +19,10 @@ import java.util.concurrent.ConcurrentHashMap;
 public enum TypeInfoHelper {
     INSTANCE;
 
-    public static final String SYSOBJECT_VIEW_LIST = "object_name,title,subject,owner_name,r_object_type,r_creation_date,r_modify_date,r_version_label,r_lock_owner,r_object_id";
-    public static final String GROUP_VIEW_LIST = "group_name,group_display_name,owner_name,description,group_class,r_modify_date,is_private,is_dynamic,group_global_unique_id,r_object_id";
-    public static final String USER_VIEW_LIST = "user_name,user_address,user_login_name,user_login_domain,user_privileges,user_state,default_folder,r_modify_date,last_login_utc_time,user_global_unique_id,r_object_id";
+    public static final String DOCUMENT_ATTR_LIST = "object_name,title,subject,owner_name,r_object_type,r_creation_date,r_modify_date,r_content_size,r_version_label,r_lock_owner,r_object_id";
+    public static final String FOLDER_ATTR_LIST = "object_name,title,subject,owner_name,r_object_type,r_creation_date,r_modify_date,r_object_id";
+    public static final String GROUP_ATTR_LIST = "group_name,group_display_name,owner_name,description,group_class,r_modify_date,is_private,is_dynamic,group_global_unique_id,r_object_id";
+    public static final String USER_ATTR_LIST = "user_name,user_address,user_login_name,user_login_domain,user_privileges,user_state,default_folder,r_modify_date,last_login_utc_time,user_global_unique_id,r_object_id";
 
     private Map<String, Map<String, String>> meta = new ConcurrentHashMap<>();
     private Map<String, List<String>> editableProperties = new ConcurrentHashMap<>();

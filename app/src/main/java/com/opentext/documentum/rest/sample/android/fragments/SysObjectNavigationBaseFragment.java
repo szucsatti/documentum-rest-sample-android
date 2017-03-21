@@ -100,6 +100,8 @@ public abstract class SysObjectNavigationBaseFragment extends BaseFragment imple
         // todo: add Name type
         switch (entryItem.entry.getContentObject().getName()) {
             case DctmModelType.CABINET:
+            case DctmModelType.FOLDER:
+            case DctmModelType.DOCUMENT:
             case DctmModelType.OBJECT:
                 String dm_type = (String) entryItem.entry.getContentObject().getProperties().get("r_object_type");
                 if (dm_type.equals("dm_folder") || dm_type.equals("dm_cabinet")) {

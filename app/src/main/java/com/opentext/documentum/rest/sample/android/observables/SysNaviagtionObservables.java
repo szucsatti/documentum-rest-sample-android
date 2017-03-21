@@ -38,9 +38,10 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-import static com.opentext.documentum.rest.sample.android.util.TypeInfoHelper.GROUP_VIEW_LIST;
-import static com.opentext.documentum.rest.sample.android.util.TypeInfoHelper.SYSOBJECT_VIEW_LIST;
-import static com.opentext.documentum.rest.sample.android.util.TypeInfoHelper.USER_VIEW_LIST;
+import static com.opentext.documentum.rest.sample.android.util.TypeInfoHelper.DOCUMENT_ATTR_LIST;
+import static com.opentext.documentum.rest.sample.android.util.TypeInfoHelper.FOLDER_ATTR_LIST;
+import static com.opentext.documentum.rest.sample.android.util.TypeInfoHelper.GROUP_ATTR_LIST;
+import static com.opentext.documentum.rest.sample.android.util.TypeInfoHelper.USER_ATTR_LIST;
 
 
 public class SysNaviagtionObservables {
@@ -58,9 +59,11 @@ public class SysNaviagtionObservables {
                     feed = null;
                     subscriber.onError(new Exception("id is blank"));
                 } else {
-                    feed = client.getObjects(client.getObject(id), "inline", "true", "view", SYSOBJECT_VIEW_LIST);
+                    feed = client.getFolders(client.getObject(id), "inline", "true", "view", FOLDER_ATTR_LIST);
+                    adapter.addFeed(feed);
+                    feed = client.getDocuments(client.getObject(id), "inline", "true", "view", DOCUMENT_ATTR_LIST);
+                    adapter.addFeed(feed);
                 }
-                adapter.addFeed(feed);
                 subscriber.onNext(adapter);
                 subscriber.onCompleted();
             }
@@ -99,7 +102,7 @@ public class SysNaviagtionObservables {
                     feed = null;
                     subscriber.onError(new Exception("id is blank"));
                 } else {
-                    feed = client.getGroups(client.getObject(id), "inline", "true", "view", GROUP_VIEW_LIST);
+                    feed = client.getGroups(client.getObject(id), "inline", "true", "view", GROUP_ATTR_LIST);
                 }
                 adapter.addFeed(feed);
                 subscriber.onNext(adapter);
@@ -144,23 +147,21 @@ public class SysNaviagtionObservables {
                 Feed<RestObject> feed = null;
                 if (showAll || id == null)
                     switch (type) {
-                        case CABINETS:
-                            feed = client.getCabinets("inline", "true", "view", SYSOBJECT_VIEW_LIST);
-                            break;
                         case USERS:
-                            feed = client.getUsers("inline", "true", "view", USER_VIEW_LIST);
+                            feed = client.getUsers("inline", "true", "view", USER_ATTR_LIST);
                             break;
                         case GROUPS:
-                            feed = client.getGroups("inline", "true", "view", GROUP_VIEW_LIST);
+                            feed = client.getGroups("inline", "true", "view", GROUP_ATTR_LIST);
                             break;
+                        case CABINETS:
                         default:
-                            feed = client.getCabinets("inline", "true", "view", SYSOBJECT_VIEW_LIST);
+                            feed = client.getCabinets("inline", "true", "view", FOLDER_ATTR_LIST);
                             break;
                     }
                 else {
                     switch (type) {
                         case USERS:
-                            feed = client.getUsers(client.getGroup(id), "inline", "true", "view", USER_VIEW_LIST);
+                            feed = client.getUsers(client.getGroup(id), "inline", "true", "view", USER_ATTR_LIST);
                             break;
                     }
                 }
