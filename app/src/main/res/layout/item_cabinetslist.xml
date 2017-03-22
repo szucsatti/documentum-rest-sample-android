@@ -52,6 +52,14 @@
         android:layout_weight="0" />
 
     <ImageView
+        android:id="@+id/item_content_image"
+        android:layout_width="@dimen/item_about_image_length"
+        android:layout_height="@dimen/item_about_image_length"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginRight="32dp"
+        android:layout_weight="0" />
+
+    <ImageView
         android:id="@+id/item_about_image"
         android:layout_width="@dimen/item_about_image_length"
         android:layout_height="@dimen/item_about_image_length"

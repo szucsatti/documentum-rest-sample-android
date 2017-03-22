@@ -14,10 +14,13 @@ import android.widget.TextView;
 
 import com.emc.documentum.rest.client.sample.model.RestObject;
 import com.opentext.documentum.rest.sample.android.R;
+import com.opentext.documentum.rest.sample.android.enums.DctmPropertyName;
 import com.opentext.documentum.rest.sample.android.fragments.SysObjectNavigationBaseFragment;
 import com.opentext.documentum.rest.sample.android.items.EntryItem;
-import com.opentext.documentum.rest.sample.android.util.AccountHelper;
+import com.opentext.documentum.rest.sample.android.observables.ObjectDetailObservables;
+import com.opentext.documentum.rest.sample.android.util.AppCurrentUser;
 import com.opentext.documentum.rest.sample.android.util.MimeIconHelper;
+import com.opentext.documentum.rest.sample.android.util.RestObjectUtil;
 
 import org.springframework.util.StringUtils;
 
@@ -38,19 +41,29 @@ public class CabinetsListAdapter extends SysObjectListBaseAdapter {
         ImageView typeImage = (ImageView) convertView.findViewById(R.id.item_cabinetslist_image);
         ImageView lockImage = (ImageView) convertView.findViewById(R.id.item_lock_image);
         lockImage.setVisibility(View.GONE);
+        ImageView contentImage = (ImageView) convertView.findViewById(R.id.item_content_image);
+        contentImage.setVisibility(View.GONE);
 
-        if (item.entry.getContentObject().getProperties().containsKey("r_lock_owner")) {
-            String owner = item.entry.getContentObject().getProperties().get("r_lock_owner").toString();
-            if (!StringUtils.isEmpty(owner)) {
-                lockImage.setVisibility(View.VISIBLE);
-                if (owner.equals(AccountHelper.getId(context))) {
-                    lockImage.setImageResource(R.drawable.vic_lock_o);
-                } else {
-                    lockImage.setImageResource(R.drawable.vic_lock_b);
-                }
+        String locker = RestObjectUtil.getString(item.entry.getContentObject(), DctmPropertyName.R_LOCK_OWNER);
+        if (!StringUtils.isEmpty(locker)) {
+            lockImage.setVisibility(View.VISIBLE);
+            if (locker.equals(AppCurrentUser.getUsername())) {
+                lockImage.setImageResource(R.drawable.vic_lock_o);
+            } else {
+                lockImage.setImageResource(R.drawable.vic_lock_b);
             }
-        } else {
-            lockImage.setVisibility(View.GONE);
+        }
+        int contentSize = RestObjectUtil.getInt(item.entry.getContentObject(), DctmPropertyName.R_CONTENT_SIZE);
+        if (contentSize > 0) {
+            contentImage.setVisibility(View.VISIBLE);
+            contentImage.setImageResource(R.drawable.vic_download);
+            final RestObject doc = item.entry.getContentObject();
+            contentImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ObjectDetailObservables.downloadObject(doc, CabinetsListAdapter.this.fragment);
+                }
+            });
         }
 
         TextView nameTextView = (TextView) convertView.findViewById(R.id.item_cabinetslist_name);

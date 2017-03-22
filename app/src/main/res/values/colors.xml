@@ -17,7 +17,7 @@
     <color name="normal_bkgd_color">#d8d8d8</color>
     <color name="selected_text">#4285f4</color>
     <color name="log_in_product_info">#D8D8D8</color>
-    <color name="selected_cabinet_item">#b7ffd0</color>
+    <color name="selected_cabinet_item">#f7c7c3</color>
     <color name="error_msg">#f2133c</color>
     <color name="info_msg">#747474</color>
     <color name="repo_selected">#ecf2a2</color>

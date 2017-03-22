@@ -4,7 +4,7 @@
 
 package com.opentext.documentum.rest.sample.android.observables;
 
-import android.os.Environment;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -23,6 +23,9 @@ import com.opentext.documentum.rest.sample.android.fragments.ObjectBaseFragment;
 import com.opentext.documentum.rest.sample.android.fragments.ObjectDetailFragment;
 import com.opentext.documentum.rest.sample.android.items.ObjectDetailItem;
 import com.opentext.documentum.rest.sample.android.util.AppDCTMClientBuilder;
+import com.opentext.documentum.rest.sample.android.util.FileUtil;
+import com.opentext.documentum.rest.sample.android.util.MimeIconHelper;
+import com.opentext.documentum.rest.sample.android.util.RestObjectUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -35,6 +38,8 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
+
+import static com.emc.documentum.rest.client.sample.model.LinkRelation.ENCLOSURE;
 
 
 public class ObjectDetailObservables {
@@ -63,9 +68,9 @@ public class ObjectDetailObservables {
                         for (Link link : entry.getLinks())
                             if (link.getTitle() != null && link.getTitle().equals("LOCAL")) {
                                 String fileName = document.getProperties().get("object_name").toString();
-                                if (isTxt(fileName)) {
+                                if (MimeIconHelper.isTxt(fileName)) {
                                     object.put(KEY_TEXT, client.getContentBytes(link.getHref()));
-                                } else if (isImage(fileName)) {
+                                } else if (MimeIconHelper.isImage(fileName)) {
                                     object.put(KEY_IMAGE, client.getContentBytes(link.getHref()));
                                 } else
                                     object.put(KEY_OTHER, client.getContentBytes(link.getHref()));
@@ -83,22 +88,22 @@ public class ObjectDetailObservables {
             @Override
             public void onError(Throwable e) {
                 Log.d(TAG, throwableToString(e));
-                fragment.setErrorContent();
+                fragment.setUnsupportedContent();
             }
 
             @Override
             public void onNext(Map<String, byte[]> o) {
                 if (o == null) {
-                    fragment.setErrorContent();
+                    fragment.setUnsupportedContent();
                     return;
                 }
                 if (o.containsKey(KEY_TEXT))
-                    fragment.setTextContent(o.get(KEY_TEXT));
+                    fragment.setViewTextContent(o.get(KEY_TEXT));
                 else if (o.containsKey(KEY_IMAGE))
                     fragment.setImageContent(o.get(KEY_IMAGE));
                 else {
                     fragment.setContentBytes(o.get(KEY_OTHER));
-                    fragment.setErrorContent();
+                    fragment.setUnsupportedContent();
                 }
             }
         });
@@ -180,16 +185,54 @@ public class ObjectDetailObservables {
         });
     }
 
+    public static void downloadObject(final RestObject doc, final Fragment fragment) {
+        Observable.create(new Observable.OnSubscribe<Object>() {
+            @Override
+            public void call(Subscriber<? super Object> subscriber) {
+                File file = FileUtil.newFile(RestObjectUtil.getString(doc, DctmPropertyName.OBJECT_NAME), fragment);
+                if (file == null) {
+                    subscriber.onError(new Exception("Cant create directory"));
+                }
+                try {
+                    DCTMRestClient client = AppDCTMClientBuilder.build();
+                    RestObject primaryContent = client.getPrimaryContent(doc, "media-url-policy", "local");
+                    byte[] data = client.getContentBytes(primaryContent.getHref(ENCLOSURE));
+                    FileOutputStream fs = new FileOutputStream(file);
+                    fs.write(data);
+                    fs.close();
+                    subscriber.onNext(file.getAbsolutePath());
+                } catch (Exception e) {
+                    subscriber.onError(e);
+                }
+            }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Object>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d(TAG, throwableToString(e));
+                Toast.makeText(fragment.getContext(), "can't save this file", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNext(Object o) {
+                Toast.makeText(fragment.getContext(), "file has been saved to " + o.toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
     public static void downloadObject(final ObjectBaseFragment fragment) {
         Observable.create(new Observable.OnSubscribe<Object>() {
             @Override
             public void call(Subscriber<? super Object> subscriber) {
-                File directory = new File(fragment.getContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), fragment.getActivity().getPackageName());
-                if (!directory.isDirectory() && !directory.mkdirs()) {
+                File file = FileUtil.newFile(fragment.getObjectName(), fragment);
+                if (file == null) {
                     subscriber.onError(new Exception("Cant create directory"));
                 }
                 try {
-                    File file = File.createTempFile("tmp", fragment.getObjectName(), directory);
                     FileOutputStream fs = new FileOutputStream(file);
                     fs.write(fragment.getContentBytes());
                     fs.close();
@@ -257,22 +300,6 @@ public class ObjectDetailObservables {
                 Toast.makeText(fragment.getContext(), "checkin succeeded", Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    private static boolean isTxt(String fileName) {
-        String[] temps = fileName.split("\\.");
-        String extension = temps[temps.length - 1];
-        if (extension.toLowerCase().equals("txt"))
-            return true;
-        return false;
-    }
-
-    private static boolean isImage(String fileName) {
-        String[] temps = fileName.split("\\.");
-        String extension = temps[temps.length - 1].toLowerCase();
-        if (extension.equals("jpg") || extension.equals("jpeg") || extension.equals("png"))
-            return true;
-        return false;
     }
 
     private static String throwableToString(Throwable e) {

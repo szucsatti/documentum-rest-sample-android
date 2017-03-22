@@ -37,6 +37,7 @@ import com.opentext.documentum.rest.sample.android.R;
 import com.opentext.documentum.rest.sample.android.adapters.ObjectDetailAdapter;
 import com.opentext.documentum.rest.sample.android.items.ObjectDetailItem;
 import com.opentext.documentum.rest.sample.android.observables.ObjectDetailObservables;
+import com.opentext.documentum.rest.sample.android.util.MimeIconHelper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -56,7 +57,8 @@ public class ObjectBaseFragment extends Fragment {
     protected ObjectDetailAdapter adapter;
     @BindView(R.id.object_title)
     TextView titleView;
-
+    @BindView(R.id.object_content_title)
+    TextView contentTitleView;
     @BindView(R.id.object_detail_list)
     ListView objectDetailListView;
     @BindView(R.id.object_detail_scroll_view)
@@ -66,10 +68,10 @@ public class ObjectBaseFragment extends Fragment {
     ImageView imageView;
     @BindView(R.id.object_text)
     EditText textView;
+    @BindView(R.id.object_error_text)
+    TextView errorTextView;
     @BindView(R.id.object_default_text)
     TextView defaultTextView;
-    @BindView(R.id.object_buttons)
-    View buttons;
     @BindView(R.id.object_text_button)
     Button txtButton;
     @BindView(R.id.object_file_button)
@@ -151,7 +153,7 @@ public class ObjectBaseFragment extends Fragment {
     @OnClick(R.id.object_text_button)
     void onClickTxtButton() {
         if (textView.getVisibility() != View.VISIBLE)
-            setTextContent(null);
+            setEditTextContent(null);
 
     }
 
@@ -185,12 +187,12 @@ public class ObjectBaseFragment extends Fragment {
                 Log.d(TAG, e.toString());
                 Toast.makeText(getContext(), "can't open the file", Toast.LENGTH_SHORT).show();
             }
-            if (fileNameString.toLowerCase().endsWith(".txt"))
-                setTextContent(this.contentBytes);
-            else if (fileNameString.toLowerCase().endsWith(".jpg") || fileNameString.toLowerCase().endsWith(".png") || fileNameString.toLowerCase().endsWith(".jpeg"))
+            if (MimeIconHelper.isTxt(fileNameString))
+                setEditTextContent(this.contentBytes);
+            else if (MimeIconHelper.isImage(fileNameString))
                 setImageContent(this.contentBytes);
             else
-                setErrorContent();
+                setUnsupportedContent();
         }
     }
 
@@ -208,8 +210,18 @@ public class ObjectBaseFragment extends Fragment {
         return adapter.getProperties();
     }
 
-    public void setTextContent(byte[] content) {
+    public void setViewTextContent(byte[] content) {
+        textView.setVisibility(View.GONE);
+        errorTextView.setVisibility(View.GONE);
+        imageView.setVisibility(View.GONE);
+        this.setContentBytes(content);
+        defaultTextView.setVisibility(View.VISIBLE);
+        defaultTextView.setText(new String(content));
+    }
+
+    public void setEditTextContent(byte[] content) {
         defaultTextView.setVisibility(View.GONE);
+        errorTextView.setVisibility(View.GONE);
         imageView.setVisibility(View.GONE);
         this.setContentBytes(content);
         textView.setVisibility(View.VISIBLE);
@@ -220,6 +232,7 @@ public class ObjectBaseFragment extends Fragment {
 
     public void setImageContent(byte[] content) {
         defaultTextView.setVisibility(View.GONE);
+        errorTextView.setVisibility(View.GONE);
         textView.setVisibility(View.GONE);
         this.setContentBytes(content);
         imageView.setVisibility(View.VISIBLE);
@@ -227,11 +240,11 @@ public class ObjectBaseFragment extends Fragment {
         imageView.setImageBitmap(bmp);
     }
 
-    public void setErrorContent() {
+    public void setUnsupportedContent() {
         textView.setVisibility(View.GONE);
+        defaultTextView.setVisibility(View.GONE);
         imageView.setVisibility(View.GONE);
-        defaultTextView.setVisibility(View.VISIBLE);
-        downloadButton.setVisibility(View.GONE);
+        errorTextView.setVisibility(View.VISIBLE);
     }
 
     public void setNullContent() {
@@ -240,7 +253,6 @@ public class ObjectBaseFragment extends Fragment {
                 (CoordinatorLayout.LayoutParams) scrollView.getLayoutParams();
         params.setBehavior(null);
     }
-
 
     public void setListViewHeightBasedOnChildren() {
         ListAdapter listAdapter = objectDetailListView.getAdapter();
@@ -275,10 +287,6 @@ public class ObjectBaseFragment extends Fragment {
 
     public void setContentBytes(byte[] contentBytes) {
         this.contentBytes = contentBytes;
-    }
-
-    public void setButtonsVisibility(int visibility) {
-        buttons.setVisibility(visibility);
     }
 
     public String getObjectName() {

@@ -60,6 +60,7 @@ public class ObjectCreateFragment extends ObjectBaseFragment {
                 break;
             case R.id.create_document:
                 titleView.setText(getString(R.string.new_document));
+                contentTitleView.setText(getString(R.string.new_content));
                 updateAdapterItems(new ObjectDetailItem[]{
                                 new ObjectDetailItem(DctmModelType.OBJECT, DctmPropertyName.OBJECT_NAME, ""),
                                 new ObjectDetailItem(DctmModelType.OBJECT, DctmPropertyName.TITLE, ""),
@@ -84,13 +85,11 @@ public class ObjectCreateFragment extends ObjectBaseFragment {
                                 new ObjectDetailItem(DctmModelType.GROUP, DctmPropertyName.DESCRIPTION_GROUP, ""),
                                 new ObjectDetailItem(DctmModelType.GROUP, DctmPropertyName.GROUP_DISPLAY_NAME, "")},
                         true);
-                setErrorContent();
-                buttons.setVisibility(View.GONE);
+//                setUnsupportedContent();
                 break;
         }
         if (menuItemId == R.id.create_folder || menuItemId == R.id.create_cabinet || menuItemId == R.id.create_user || menuItemId == R.id.create_group) {
             setNullContent();
-            buttons.setVisibility(View.GONE);
         }
     }
 

@@ -17,7 +17,6 @@ import com.opentext.documentum.rest.sample.android.MainActivity;
 import com.opentext.documentum.rest.sample.android.R;
 import com.opentext.documentum.rest.sample.android.adapters.SysObjectListBaseAdapter;
 import com.opentext.documentum.rest.sample.android.enums.DctmModelType;
-import com.opentext.documentum.rest.sample.android.enums.DctmObjectType;
 import com.opentext.documentum.rest.sample.android.enums.DctmPropertyName;
 import com.opentext.documentum.rest.sample.android.items.ObjectDetailItem;
 import com.opentext.documentum.rest.sample.android.observables.ObjectDetailObservables;
@@ -64,10 +63,6 @@ public class ObjectDetailFragment extends ObjectBaseFragment {
         return this.restObject;
     }
 
-    public void setRestObject(RestObject restObject) {
-        this.restObject = restObject;
-    }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -80,9 +75,9 @@ public class ObjectDetailFragment extends ObjectBaseFragment {
                 ((MainActivity) getActivity()).removeTmpFragment(ObjectDetailFragment.this);
             }
         });
-        if (!DctmObjectType.DM_DOCUMENT.equals(contentType)) {
+        if (!DctmModelType.DOCUMENT.equals(contentType) || !hasContent()) {
             setNullContent();
-        } else if (hasContent()) {
+        } else {
             ObjectDetailObservables.loadObjectContent(this);
         }
 
@@ -104,8 +99,7 @@ public class ObjectDetailFragment extends ObjectBaseFragment {
     }
 
     private boolean hasContent() {
-        return restObject.getProperties().containsKey(DctmPropertyName.R_CONTENT_SIZE)
-                && ((int) restObject.getProperties().get(DctmPropertyName.R_CONTENT_SIZE)) > 0;
+        return RestObjectUtil.getInt(restObject, DctmPropertyName.R_CONTENT_SIZE) > 0;
     }
 
     @Override

@@ -12,13 +12,19 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="properties">PROPERTIES</string>
-    <string name="new_cabinet">NEW CABINET</string>
-    <string name="new_folder">NEW FOLDER</string>
-    <string name="new_document">NEW DOCUMENT</string>
-    <string name="new_user">NEW USER</string>
-    <string name="new_group">NEW GROUP</string>
+    <string name="content">CONTENT</string>
+    <string name="new_content">NEW CONTENT</string>
+    <string name="new_cabinet">NEW CABINET PROPERTIES</string>
+    <string name="new_folder">NEW FOLDER PROPERTIES</string>
+    <string name="new_document">NEW DOCUMENT PROPERTIES</string>
+    <string name="new_user">NEW USER PROPERTIES</string>
+    <string name="new_group">NEW GROUP PROPERTIES</string>
     <string name="empty_msg">EMPTY HERE :)</string>
     <string name="error_msg">ERROR HERE :(</string>
+    <string name="choose_file">Choose file</string>
+    <string name="raw">Input text</string>
+    <string name="content_na">NO AVAILABLE CONTENT VIEWER</string>
+    <string name="save_to_phone">Save to phone</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
