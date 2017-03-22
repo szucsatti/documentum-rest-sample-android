@@ -50,11 +50,13 @@ public class UsersListAdapter extends SysObjectListBaseAdapter {
         if (fragment == null) aboutImage.setVisibility(View.GONE);
 
         if (this.selectedPositions.contains(position)) {
+            convertView.setElevation(5);
             convertView.setBackgroundColor(ThemeResolver.resolve(context.getTheme(), R.attr.colorAccent));
             nameTextView.setTextColor(ThemeResolver.resolve(context.getTheme(), R.attr.colorPrimary));
             timeTextView.setTextColor(ThemeResolver.resolve(context.getTheme(), R.attr.colorPrimary));
             aboutImage.setColorFilter(ThemeResolver.resolve(context.getTheme(), R.attr.colorPrimary));
         } else {
+            convertView.setElevation(0);
             convertView.setBackgroundColor(ThemeResolver.resolve(context.getTheme(), R.attr.colorPrimary));
             nameTextView.setTextColor(context.getColor(R.color.textGray));
             timeTextView.setTextColor(context.getColor(R.color.loginTextGray));

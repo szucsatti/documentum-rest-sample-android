@@ -5,7 +5,7 @@
 package com.opentext.documentum.rest.sample.android.fragments;
 
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.ActionMode;
@@ -25,6 +25,7 @@ import com.opentext.documentum.rest.sample.android.enums.FeedType;
 import com.opentext.documentum.rest.sample.android.items.EntryItem;
 import com.opentext.documentum.rest.sample.android.observables.SysNaviagtionObservables;
 import com.opentext.documentum.rest.sample.android.util.AppCurrentUser;
+import com.opentext.documentum.rest.sample.android.util.ThemeResolver;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -37,9 +38,10 @@ public class UsersFragment extends SysObjectNavigationBaseFragment {
         listView.setOnItemClickListener(this);
         listView.setOnScrollListener(this);
         listView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        listView.setBackgroundColor(Color.WHITE);
-        listView.setDividerHeight(24);
-        listView.setDivider(getResources().getDrawable(R.color.pureWhite));
+        listView.setBackgroundColor(ThemeResolver.resolve(getContext().getTheme(), R.attr.colorPrimary));
+        int[] colors = {0, R.color.textGray, 0};
+        listView.setDivider(new GradientDrawable(GradientDrawable.Orientation.RIGHT_LEFT, colors));
+        listView.setDividerHeight(1);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         listView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
             List<String> ids = new LinkedList<String>();
