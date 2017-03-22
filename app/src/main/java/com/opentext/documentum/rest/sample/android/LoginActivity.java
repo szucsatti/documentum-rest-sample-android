@@ -4,7 +4,6 @@
 
 package com.opentext.documentum.rest.sample.android;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatCheckBox;
@@ -20,6 +19,7 @@ import android.widget.TextView;
 
 import com.opentext.documentum.rest.sample.android.observables.LoginObservables;
 import com.opentext.documentum.rest.sample.android.util.AccountHelper;
+import com.opentext.documentum.rest.sample.android.util.ThemeResolver;
 
 import org.springframework.util.StringUtils;
 
@@ -212,7 +212,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void setEnableLogin() {
         login_button.setEnabled(true);
-        login_button.setBackgroundColor(Color.parseColor("#0e8488"));
+        login_button.setBackgroundColor(ThemeResolver.resolve(getTheme(), R.attr.colorAccent));
         checkBox.setEnabled(true);
     }
 }

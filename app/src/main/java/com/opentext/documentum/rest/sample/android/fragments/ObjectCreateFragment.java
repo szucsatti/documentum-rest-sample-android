@@ -85,7 +85,6 @@ public class ObjectCreateFragment extends ObjectBaseFragment {
                                 new ObjectDetailItem(DctmModelType.GROUP, DctmPropertyName.DESCRIPTION_GROUP, ""),
                                 new ObjectDetailItem(DctmModelType.GROUP, DctmPropertyName.GROUP_DISPLAY_NAME, "")},
                         true);
-//                setUnsupportedContent();
                 break;
         }
         if (menuItemId == R.id.create_folder || menuItemId == R.id.create_cabinet || menuItemId == R.id.create_user || menuItemId == R.id.create_group) {

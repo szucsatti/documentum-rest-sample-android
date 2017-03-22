@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.opentext.documentum.rest.sample.android.R;
 import com.opentext.documentum.rest.sample.android.items.DrawerItem;
+import com.opentext.documentum.rest.sample.android.util.ThemeResolver;
 
 
 public class DrawerListAdapter extends ArrayAdapter<DrawerItem> {
@@ -41,12 +42,12 @@ public class DrawerListAdapter extends ArrayAdapter<DrawerItem> {
         TextView textView = (TextView) convertView.findViewById(R.id.drawer_item_text);
         if (position != selected) {
             textView.setText(item.navString);
-            textView.setTextColor(context.getResources().getColor(R.color.colorPrimaryDark));
+            textView.setTextColor(ThemeResolver.resolve(context.getTheme(), R.attr.colorPrimaryDark));
             textView.setTypeface(null, Typeface.NORMAL);
             imageView.setImageResource(item.inactiveResource);
         } else {
             textView.setText(item.navString);
-            textView.setTextColor(context.getResources().getColor(R.color.selectedText));
+            textView.setTextColor(ThemeResolver.resolve(context.getTheme(), R.attr.colorAccent));
             textView.setTypeface(null, Typeface.BOLD);
             imageView.setImageResource(item.activeResource);
         }

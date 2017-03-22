@@ -23,14 +23,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CoverActivity"></activity>
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".CoverActivity" />
+        <activity android:name=".LoginActivity" />
         <activity
             android:name=".MiniUsersListActivity"
-            android:theme="@style/DialogTheme"></activity>
+            android:theme="@style/DialogTheme" />
         <activity
             android:name=".MiniGroupsListActivity"
-            android:theme="@style/DialogTheme"></activity>
+            android:theme="@style/DialogTheme" />
     </application>
 
 </manifest>

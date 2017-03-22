@@ -21,6 +21,7 @@ import com.opentext.documentum.rest.sample.android.observables.ObjectDetailObser
 import com.opentext.documentum.rest.sample.android.util.AppCurrentUser;
 import com.opentext.documentum.rest.sample.android.util.MimeIconHelper;
 import com.opentext.documentum.rest.sample.android.util.RestObjectUtil;
+import com.opentext.documentum.rest.sample.android.util.ThemeResolver;
 
 import org.springframework.util.StringUtils;
 
@@ -85,7 +86,7 @@ public class CabinetsListAdapter extends SysObjectListBaseAdapter {
         nameTextView.setText(item.entry.getTitle());
         timeTextView.setText(regularTime(item.entry.getUpdated()));
 
-        View aboutImage = convertView.findViewById(R.id.item_about_image);
+        ImageView aboutImage = (ImageView) convertView.findViewById(R.id.item_about_image);
         aboutImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,10 +94,19 @@ public class CabinetsListAdapter extends SysObjectListBaseAdapter {
             }
         });
 
-        if (this.selectedPositions.contains(position))
-            convertView.setBackgroundColor(context.getResources().getColor(R.color.selected_cabinet_item));
-        else
-            convertView.setBackgroundColor(context.getResources().getColor(R.color.pureWhite));
+        if (this.selectedPositions.contains(position)) {
+            convertView.setBackgroundColor(ThemeResolver.resolve(context.getTheme(), R.attr.colorAccent));
+            nameTextView.setTextColor(ThemeResolver.resolve(context.getTheme(), R.attr.colorPrimary));
+            timeTextView.setTextColor(ThemeResolver.resolve(context.getTheme(), R.attr.colorPrimary));
+            contentImage.setColorFilter(ThemeResolver.resolve(context.getTheme(), R.attr.colorPrimary));
+            aboutImage.setColorFilter(ThemeResolver.resolve(context.getTheme(), R.attr.colorPrimary));
+        } else {
+            convertView.setBackgroundColor(ThemeResolver.resolve(context.getTheme(), R.attr.colorPrimary));
+            nameTextView.setTextColor(context.getColor(R.color.textGray));
+            timeTextView.setTextColor(context.getColor(R.color.loginTextGray));
+            contentImage.setColorFilter(context.getColor(R.color.textGray));
+            aboutImage.setColorFilter(context.getColor(R.color.textGray));
+        }
 
         if (position == getCount() - 1) {
             addNextPageFeed();

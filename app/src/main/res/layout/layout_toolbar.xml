@@ -6,9 +6,9 @@
     android:id="@+id/tool_bar"
     android:layout_width="match_parent"
     android:layout_height="@dimen/layout_toolbar_height"
-    android:background="@color/drawer_account_bk"
+    android:background="?attr/colorAccent"
     android:elevation="5dp"
-    android:theme="@style/MyToolbar">
+    android:theme="@style/AppToolbar">
 
     <Button
         android:id="@+id/back_button"
@@ -26,7 +26,7 @@
         android:ellipsize="start"
         android:maxLines="1"
         android:text="@string/app_name"
-        android:textColor="@android:color/white"
+        android:textColor="?attr/colorPrimary"
         android:textSize="@dimen/layout_toolbar_title_size" />
 
 </android.support.v7.widget.Toolbar>

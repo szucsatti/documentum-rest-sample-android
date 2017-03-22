@@ -17,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="?attr/colorPrimary"
+            android:background="@color/pureWhite"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <RelativeLayout
@@ -28,7 +29,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
-                    android:background="@color/pureWhite">
+                    android:layout_alignParentTop="true"
+                    android:id="@+id/content_btns_layout">
 
                     <TextView
                         android:id="@+id/object_content_title"
@@ -44,25 +46,6 @@
                         android:textColor="@color/textGray"
                         android:textSize="18sp"
                         android:textStyle="bold" />
-
-                    <Button
-                        android:id="@+id/object_download_button"
-                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                        android:layout_width="wrap_content"
-                        android:layout_height="24dp"
-                        android:background="?attr/colorPrimary"
-                        android:elevation="5dp"
-                        android:text="@string/save_to_phone"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button.Borderless.Colored"
-                        android:textColor="@color/textGray"
-                        android:textSize="16sp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="12dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="24dp"
-                        android:paddingStart="4dp"
-                        android:paddingEnd="4dp" />
 
                     <RadioGroup
                         android:id="@+id/radio_group"
@@ -93,22 +76,20 @@
                             android:textSize="16sp" />
                     </RadioGroup>
                 </RelativeLayout>
-
                 <RelativeLayout
                     android:id="@+id/content_bin_layout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="55dp"
-                    android:layout_marginBottom="10dp">
-
+                    android:layout_below="@+id/content_btns_layout"
+                    android:layout_margin="12dp">
                     <TextView
                         android:id="@+id/object_error_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:minHeight="60dp"
                         android:gravity="center|center_horizontal"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="4dp"
                         android:scaleType="fitCenter"
                         android:background="@drawable/text_boarder_error"
                         android:text="@string/content_na"
@@ -122,8 +103,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:minHeight="100dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="4dp"
                         android:padding="16dp"
                         android:scaleType="fitCenter"
                         android:background="@drawable/text_boarder_inactive"
@@ -135,8 +116,8 @@
 
                     <ImageView
                         android:id="@+id/object_image"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="4dp"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
@@ -149,8 +130,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:minHeight="100dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="4dp"
                         android:padding="16dp"
                         android:scaleType="fitCenter"
                         android:textColor="@color/textBlack"
@@ -159,15 +140,26 @@
                         android:visibility="gone"
                         app:layout_collapseMode="parallax" />
                 </RelativeLayout>
-
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:id="@+id/save_btn_layout"
+                    android:gravity="center|center_horizontal"
+                    android:layout_below="@+id/content_bin_layout">
 
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="1dp"
-                        android:background="#000000" />
+                    <Button
+                        android:id="@+id/object_download_button"
+                        style="@style/Widget.AppCompat.Button.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="24dp"
+                        android:background="?attr/colorPrimary"
+                        android:elevation="10dp"
+                        android:text="@string/save_to_phone"
+                        android:textColor="@color/textGray"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="12dp"
+                        android:paddingStart="4dp"
+                        android:paddingEnd="4dp" />
                 </RelativeLayout>
             </RelativeLayout>
         </android.support.design.widget.CollapsingToolbarLayout>

@@ -115,8 +115,7 @@ public class UsersFragment extends SysObjectNavigationBaseFragment {
         inflater.inflate(R.menu.users_list_normal_menu, menu);
         if (!AppCurrentUser.canCreateUserGroup()) {
             MenuItem createUserItem = menu.findItem(R.id.create_user);
-            createUserItem.setEnabled(false);
-            createUserItem.setIcon(getResources().getDrawable(R.drawable.vic_add_user_g));
+            createUserItem.setVisible(false);
         }
     }
 

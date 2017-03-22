@@ -6,7 +6,6 @@
     android:id="@+id/item_cabinetslist_layout"
     android:layout_width="match_parent"
     android:layout_height="@dimen/item_height"
-    android:background="@color/pureWhite"
     android:orientation="horizontal">
 
     <ImageView
@@ -31,15 +30,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
+            android:textColor="@color/textGray"
             android:maxLines="1"
-            android:textColor="@color/textBlack"
             android:textSize="@dimen/item_title_size" />
 
         <TextView
             android:id="@+id/item_cabinetslist_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/textGray"
+            android:textColor="@color/loginTextGray"
             android:textSize="@dimen/item_date_size" />
     </LinearLayout>
 

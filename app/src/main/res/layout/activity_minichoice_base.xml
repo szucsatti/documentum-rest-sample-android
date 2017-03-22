@@ -33,7 +33,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textColor="#9B9B9B"
             android:textSize="36sp"
             android:visibility="gone" />
 
@@ -51,10 +50,24 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/two_buttons"
+            android:id="@+id/mini_button_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+            <Button
+                android:id="@+id/ok_button"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="SELECT" />
+            <Button
+                android:id="@+id/remove_button"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="REMOVE" />
 
             <Button
                 android:id="@+id/cancel_button"
@@ -63,22 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="CANCEL" />
-
-            <Button
-                android:id="@+id/ok_button"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="OK" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/remove_button"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="REMOVE" />
     </LinearLayout>
 
 </LinearLayout>

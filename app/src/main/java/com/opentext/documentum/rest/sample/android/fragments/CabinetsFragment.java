@@ -191,7 +191,7 @@ public class CabinetsFragment extends SysObjectNavigationBaseFragment {
 
         if (onCabinetsView()) {
             if (!AppCurrentUser.canCreateCabinet()) {
-                disableMenuItem(menu, R.id.create_object, R.drawable.vic_plus_g);
+                hideMenuItem(menu, R.id.create_object);
             }
             hideMenuItem(menu, R.id.create_document);
             hideMenuItem(menu, R.id.create_folder);
@@ -199,11 +199,11 @@ public class CabinetsFragment extends SysObjectNavigationBaseFragment {
         } else {
             hideMenuItem(menu, R.id.create_cabinet);
             if (!AllowableActionsHelper.canCopyTo(getEntranceFolder())) {
-                disableMenuItem(menu, R.id.copy_here_menu, R.drawable.vic_paste_g);
+                hideMenuItem(menu, R.id.copy_here_menu);
             }
             if (!AllowableActionsHelper.canMoveTo(getEntranceFolder())
                     || (this.adapters.size() > 0 && getCurrentAdapter().equals(MISCHelper.getMoveFromAdapter()))) {
-                disableMenuItem(menu, R.id.move_here_menu, R.drawable.vic_move_g);
+                hideMenuItem(menu, R.id.move_here_menu);
             }
         }
         if (MISCHelper.getTmpIds() == null) {
@@ -222,13 +222,9 @@ public class CabinetsFragment extends SysObjectNavigationBaseFragment {
 
     private void hideMenuItem(Menu menu, int id) {
         MenuItem item = menu.findItem(id);
-        item.setVisible(false);
-    }
-
-    private void disableMenuItem(Menu menu, int id, int iconId) {
-        MenuItem item = menu.findItem(id);
-        item.setVisible(false);
-        item.setIcon(getResources().getDrawable(iconId));
+        if (item != null) {
+            item.setVisible(false);
+        }
     }
 
     private boolean onCabinetsView() {

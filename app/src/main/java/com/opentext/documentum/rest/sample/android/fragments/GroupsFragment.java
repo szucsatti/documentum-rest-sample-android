@@ -169,8 +169,7 @@ public class GroupsFragment extends SysObjectNavigationBaseFragment {
         optionsMenu = menu;
         if (!AppCurrentUser.canCreateUserGroup()) {
             MenuItem createGroupItem = menu.findItem(R.id.create_group);
-            createGroupItem.setEnabled(false);
-            createGroupItem.setIcon(getResources().getDrawable(R.drawable.vic_addto_group_g));
+            createGroupItem.setVisible(false);
         }
     }
 
@@ -221,6 +220,8 @@ public class GroupsFragment extends SysObjectNavigationBaseFragment {
 
     private static void hideMenuItem(Menu menu, int id) {
         MenuItem item = menu.findItem(id);
-        item.setVisible(false);
+        if (item != null) {
+            item.setVisible(false);
+        }
     }
 }

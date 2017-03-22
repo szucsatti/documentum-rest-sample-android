@@ -47,7 +47,7 @@ public class MiniUsersListActivity extends MiniListBaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         showButtons = getIntent().getBooleanExtra(SHOW_BUTTONS, false);
-        if (!showButtons) buttonsView.setVisibility(View.GONE);
+        if (!showButtons) okButton.setVisibility(View.GONE);
         else {
             removeButton.setVisibility(View.GONE);
         }

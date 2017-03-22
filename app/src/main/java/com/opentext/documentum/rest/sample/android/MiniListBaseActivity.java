@@ -40,8 +40,8 @@ abstract public class MiniListBaseActivity extends AppCompatActivity implements 
     TextView bkTextView;
     @BindView(R.id.fragment_main_component)
     View mainComponent;
-    @BindView(R.id.two_buttons)
-    View buttonsView;
+    @BindView(R.id.ok_button)
+    Button okButton;
     @BindView(R.id.remove_button)
     Button removeButton;
     List<String> currentStringList;

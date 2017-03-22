@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.opentext.documentum.rest.sample.android.R;
 import com.opentext.documentum.rest.sample.android.fragments.SysObjectNavigationBaseFragment;
 import com.opentext.documentum.rest.sample.android.items.EntryItem;
+import com.opentext.documentum.rest.sample.android.util.ThemeResolver;
 
 
 public class UsersListAdapter extends SysObjectListBaseAdapter {
@@ -38,7 +39,7 @@ public class UsersListAdapter extends SysObjectListBaseAdapter {
         timeTextView.setText(regularTime(item.entry.getUpdated()));
 
 
-        View aboutImage = convertView.findViewById(R.id.item_about_image);
+        ImageView aboutImage = (ImageView) convertView.findViewById(R.id.item_about_image);
         aboutImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,11 +49,17 @@ public class UsersListAdapter extends SysObjectListBaseAdapter {
 
         if (fragment == null) aboutImage.setVisibility(View.GONE);
 
-        if (this.selectedPositions.contains(position))
-            convertView.setBackgroundColor(context.getResources().getColor(R.color.selected_cabinet_item));
-        else
-            convertView.setBackgroundColor(context.getResources().getColor(R.color.pureWhite));
-
+        if (this.selectedPositions.contains(position)) {
+            convertView.setBackgroundColor(ThemeResolver.resolve(context.getTheme(), R.attr.colorAccent));
+            nameTextView.setTextColor(ThemeResolver.resolve(context.getTheme(), R.attr.colorPrimary));
+            timeTextView.setTextColor(ThemeResolver.resolve(context.getTheme(), R.attr.colorPrimary));
+            aboutImage.setColorFilter(ThemeResolver.resolve(context.getTheme(), R.attr.colorPrimary));
+        } else {
+            convertView.setBackgroundColor(ThemeResolver.resolve(context.getTheme(), R.attr.colorPrimary));
+            nameTextView.setTextColor(context.getColor(R.color.textGray));
+            timeTextView.setTextColor(context.getColor(R.color.loginTextGray));
+            aboutImage.setColorFilter(context.getColor(R.color.textGray));
+        }
         return convertView;
     }
 }
