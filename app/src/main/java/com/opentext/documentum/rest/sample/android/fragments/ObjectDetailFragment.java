@@ -77,14 +77,6 @@ public class ObjectDetailFragment extends ObjectBaseFragment {
             }
         });
         String name = RestObjectUtil.getString(restObject, DctmPropertyName.OBJECT_NAME);
-        if (!DctmModelType.DOCUMENT.equals(contentType)
-                || !hasContent()
-                || !(MimeIconHelper.isTxt(name) || MimeIconHelper.isImage(name))) {
-            setNullContent();
-        } else {
-            ObjectDetailObservables.loadObjectContent(this);
-        }
-
         if (menuItemId == R.id.check_in_major || menuItemId == R.id.check_in_minor || menuItemId == R.id.check_in_branch) {
             ((MainActivity) getActivity()).addStringAndResetToolbar(name);
             updateAdapterItems(new ObjectDetailItem[]{
@@ -92,12 +84,24 @@ public class ObjectDetailFragment extends ObjectBaseFragment {
                             new ObjectDetailItem(DctmModelType.OBJECT, DctmPropertyName.TITLE, RestObjectUtil.getString(restObject, DctmPropertyName.TITLE)),
                             new ObjectDetailItem(DctmModelType.OBJECT, DctmPropertyName.SUBJECT, RestObjectUtil.getString(restObject, DctmPropertyName.SUBJECT))},
                     true);
+            titleView.setText(R.string.new_document);
+            contentTitleView.setVisibility(View.VISIBLE);
+            contentTitleView.setText(getString(R.string.new_content));
+            txtButton.setVisibility(View.VISIBLE);
+            fileButton.setVisibility(View.VISIBLE);
         }
         else {
             ObjectDetailObservables.loadObjectProperties(this);
-            textView.setEnabled(false);
-            txtButton.setVisibility(View.GONE);
-            fileButton.setVisibility(View.GONE);
+            if (!DctmModelType.DOCUMENT.equals(contentType)
+                    || !hasContent()
+                    || !(MimeIconHelper.isTxt(name) || MimeIconHelper.isImage(name))) {
+                setNullContent();
+            } else {
+                textView.setEnabled(false);
+                txtButton.setVisibility(View.GONE);
+                fileButton.setVisibility(View.GONE);
+                ObjectDetailObservables.loadObjectContent(this);
+            }
         }
     }
 

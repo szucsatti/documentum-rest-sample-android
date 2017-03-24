@@ -57,7 +57,7 @@ public class CabinetsFragment extends SysObjectNavigationBaseFragment {
                     String contentType;
                     if (entry.getContentObject().getType() == null)
                         contentType = DctmObjectType.DM_NULL;
-                    else contentType = entry.getContentObject().getType();
+                    else contentType = entry.getContentObject().getName();
                     contentTypes.add(contentType);
                     SysNaviagtionObservables.refreshObject(getCurrentAdapter(), CabinetsFragment.this, entry.getContentObject());
                 } else {

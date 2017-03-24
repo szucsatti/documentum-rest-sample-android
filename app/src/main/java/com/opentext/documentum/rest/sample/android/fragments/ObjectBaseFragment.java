@@ -13,7 +13,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
 import android.text.Editable;
@@ -252,9 +251,6 @@ public class ObjectBaseFragment extends Fragment {
 
     public void setNullContent() {
         contentView.setVisibility(View.GONE);
-        CoordinatorLayout.LayoutParams params =
-                (CoordinatorLayout.LayoutParams) scrollView.getLayoutParams();
-        params.setBehavior(null);
     }
 
     public void setListViewHeightBasedOnChildren() {

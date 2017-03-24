@@ -266,7 +266,6 @@ public class SysNaviagtionObservables {
             @Override
             public void onNext(Object o) {
                 ((CabinetsFragment) baseUIInterface).updateContextMenu((RestObject) o);
-                SysNaviagtionObservables.refresh(adapter, baseUIInterface);
                 baseUIInterface.disableLoadingBackground();
             }
         });

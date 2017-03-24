@@ -24,6 +24,7 @@
     <string name="choose_file">Choose file</string>
     <string name="raw">Input text</string>
     <string name="content_na">CONTENT PREVIEW NO AVAILABLE</string>
+    <string name="content_n">NO CONTENT</string>
     <string name="save_to_phone">Save to phone</string>
 
     <!-- TODO: Remove or change this placeholder text -->
