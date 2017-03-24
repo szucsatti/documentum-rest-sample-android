@@ -7,7 +7,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorPrimary"
     android:orientation="vertical"
     tools:context="com.opentext.documentum.rest.sample.android.LoginActivity">
 
@@ -27,10 +26,11 @@
             android:gravity="center"
             android:visibility="gone">
 
-            <ImageView
-                android:layout_width="@dimen/loading_image_length"
-                android:layout_height="@dimen/loading_image_length"
-                android:src="@drawable/loading" />
+            <ProgressBar
+                android:id="@+id/fragment_bk_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true" />
         </RelativeLayout>
 
         <LinearLayout
@@ -92,7 +92,7 @@
                     android:layout_width="0dp"
                     android:layout_height="29dp"
                     android:layout_weight="1"
-                    android:background="@android:color/background_light"
+                    android:background="@drawable/text_boarder_active"
                     android:popupBackground="?attr/colorAccent"
                     android:textAlignment="center" />
             </LinearLayout>
@@ -113,7 +113,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="4dp"
                     android:layout_marginStart="4dp"
-                    android:background="?attr/colorButtonNormal"
+                    android:background="@color/appInactive"
                     android:elevation="5dp"
                     android:paddingLeft="4dp"
                     android:paddingRight="4dp"
@@ -137,8 +137,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/remember_me_name"
-                    android:textColor="@color/info_msg" />
+                    android:text="@string/remember_me_name" />
             </RelativeLayout>
 
             <!-- showing product info dynamically -->
@@ -184,7 +183,6 @@
                         android:minHeight="5dp"
                         android:padding="8dp"
                         android:textAlignment="viewStart"
-                        android:textColor="@color/info_msg"
                         android:textSize="10sp"
                         android:textStyle="italic" />
                 </ScrollView>

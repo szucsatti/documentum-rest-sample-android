@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="0dp"
-        android:background="?attr/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
@@ -42,7 +41,7 @@
                         android:paddingStart="8dp"
                         android:text="@string/content"
                         android:textAlignment="viewStart"
-                        android:textColor="@color/textGray"
+                        android:textColor="@color/appTextGray"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -60,18 +59,18 @@
                             android:id="@+id/object_text_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:buttonTint="@color/textGray"
+                            android:buttonTint="@color/appTextGray"
+                            android:textColor="@color/appTextGray"
                             android:text="@string/raw"
-                            android:textColor="@color/textBlack"
                             android:textSize="16sp" />
 
                         <RadioButton
                             android:id="@+id/object_file_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:buttonTint="@color/textGray"
+                            android:buttonTint="@color/appTextGray"
+                            android:textColor="@color/appTextGray"
                             android:text="@string/choose_file"
-                            android:textColor="@color/textBlack"
                             android:textSize="16sp" />
                     </RadioGroup>
                 </RelativeLayout>
@@ -92,7 +91,7 @@
                         android:scaleType="fitCenter"
                         android:background="@drawable/text_boarder_error"
                         android:text="@string/content_na"
-                        android:textColor="@color/textGray"
+                        android:textColor="@color/appTextGray"
                         android:textSize="16sp"
                         android:visibility="gone"
                         app:layout_collapseMode="parallax" />
@@ -108,7 +107,7 @@
                         android:scaleType="fitCenter"
                         android:background="@drawable/text_boarder_inactive"
                         android:text="@string/content_na"
-                        android:textColor="@color/textGray"
+                        android:textColor="@color/appTextGray"
                         android:textSize="16sp"
                         android:visibility="gone"
                         app:layout_collapseMode="parallax" />
@@ -133,7 +132,6 @@
                         android:layout_marginEnd="4dp"
                         android:padding="16dp"
                         android:scaleType="fitCenter"
-                        android:textColor="@color/textBlack"
                         android:textSize="16sp"
                         android:background="@drawable/text_boarder_active"
                         android:visibility="gone"
@@ -151,10 +149,10 @@
                         style="@style/Widget.AppCompat.Button.Small"
                         android:layout_width="wrap_content"
                         android:layout_height="24dp"
-                        android:background="?attr/colorPrimary"
+                        android:background="?attr/colorAccent"
                         android:elevation="10dp"
                         android:text="@string/save_to_phone"
-                        android:textColor="@color/textGray"
+                        android:textColor="?attr/colorPrimary"
                         android:textSize="16sp"
                         android:layout_marginBottom="12dp"
                         android:paddingStart="4dp"
@@ -170,7 +168,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:background="?attr/colorPrimary"
         android:windowSoftInputMode="adjustPan|adjustResize"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <LinearLayout
@@ -188,7 +185,7 @@
                 android:paddingTop="8dp"
                 android:paddingStart="8dp"
                 android:textAlignment="viewStart"
-                android:textColor="@color/textGray"
+                android:textColor="@color/appTextGray"
                 android:textSize="18sp"
                 android:textStyle="bold" />
             <ListView

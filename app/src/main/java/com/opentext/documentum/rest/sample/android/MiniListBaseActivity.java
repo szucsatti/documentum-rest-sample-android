@@ -15,13 +15,11 @@ import android.view.Window;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.opentext.documentum.rest.sample.android.adapters.SysObjectListBaseAdapter;
 import com.opentext.documentum.rest.sample.android.fragments.BaseUIInterface;
-import com.opentext.documentum.rest.sample.android.observables.SetImageObservables;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -34,8 +32,8 @@ abstract public class MiniListBaseActivity extends AppCompatActivity implements 
     protected List<SysObjectListBaseAdapter> adapters = new LinkedList<>();
     @BindView(R.id.tool_bar)
     Toolbar toolbar;
-    @BindView(R.id.fragment_bk_image)
-    ImageView bkImageView;
+    @BindView(R.id.loading_layout)
+    View loadingView;
     @BindView(R.id.fragment_bk_text)
     TextView bkTextView;
     @BindView(R.id.fragment_main_component)
@@ -55,6 +53,7 @@ abstract public class MiniListBaseActivity extends AppCompatActivity implements 
         setupToolbar();
         currentStringList = new LinkedList<>();
         replaceMainComponent();
+
     }
 
 
@@ -70,7 +69,7 @@ abstract public class MiniListBaseActivity extends AppCompatActivity implements 
     }
 
     public void resetBackground() {
-        bkImageView.setVisibility(View.GONE);
+        loadingView.setVisibility(View.GONE);
         bkTextView.setVisibility(View.GONE);
         mainComponent.setVisibility(View.GONE);
     }
@@ -94,19 +93,16 @@ abstract public class MiniListBaseActivity extends AppCompatActivity implements 
 
     public void setLoadingBackground() {
         resetBackground();
-        bkImageView.setVisibility(View.VISIBLE);
-        // TODO
-        SetImageObservables.setImage(this, R.drawable.loading, bkImageView);
+        loadingView.setVisibility(View.VISIBLE);
     }
 
     public void enableLoadingBackground() {
-        bkImageView.setVisibility(View.VISIBLE);
         mainComponent.setClickable(false);
         mainComponent.setAlpha(0.20f);
     }
 
     public void disableLoadingBackground() {
-        bkImageView.setVisibility(View.GONE);
+        loadingView.setVisibility(View.GONE);
         mainComponent.setClickable(true);
         mainComponent.setAlpha(1f);
     }
@@ -121,11 +117,8 @@ abstract public class MiniListBaseActivity extends AppCompatActivity implements 
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayUseLogoEnabled(false);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_USE_LOGO);
-
-//        getSupportActionBar().setIcon(R.drawable.vic_pdf);
-//        toolbar.setNavigationIcon(getDrawable(R.drawable.vic_pdf));
-
         toolbar.findViewById(R.id.back_button).setOnClickListener(this);
+        toolbar.setBackgroundColor(getColor(R.color.appAccent));
     }
 
     public void resetTitle() {

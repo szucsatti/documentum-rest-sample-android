@@ -42,7 +42,7 @@ public class DrawerListAdapter extends ArrayAdapter<DrawerItem> {
         TextView textView = (TextView) convertView.findViewById(R.id.drawer_item_text);
         if (position != selected) {
             textView.setText(item.navString);
-            textView.setTextColor(ThemeResolver.resolve(context.getTheme(), R.attr.colorPrimaryDark));
+            textView.setTextColor(getContext().getColor(R.color.appTextGray));
             textView.setTypeface(null, Typeface.NORMAL);
             imageView.setImageResource(item.inactiveResource);
         } else {

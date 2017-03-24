@@ -88,7 +88,7 @@ public abstract class SysObjectListBaseAdapter extends ArrayAdapter<EntryItem> {
             this.selectedPositions.remove(pos);
     }
 
-    public boolean containsSeleted(int pos) {
+    public boolean containSelected(int pos) {
         for (int p : this.selectedPositions)
             if (p == pos)
                 return true;

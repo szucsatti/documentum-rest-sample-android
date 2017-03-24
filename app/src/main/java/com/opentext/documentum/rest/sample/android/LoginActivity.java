@@ -145,10 +145,9 @@ public class LoginActivity extends AppCompatActivity {
 
     public void setConsoleInfo(String info, boolean failed) {
         if (failed) {
-            consoleInfoTextView.setTextColor(getColor(R.color.error_msg));
+            consoleInfoTextView.setTextColor(getColor(R.color.appTextWarning));
             consoleInfoTextView.setText(String.format("%s%s", "Invalid service call: \r\n", info));
         } else {
-            consoleInfoTextView.setTextColor(getColor(R.color.info_msg));
             consoleInfoTextView.setText(info);
         }
     }

@@ -3,20 +3,20 @@
   -->
 
 <resources>
-    <color name="titleBlack">#1F1F1F</color>
-    <color name="textBlack">#212121</color>
-    <color name="textGray">#747474</color>
-    <color name="loginTextGray">#9b9b9b</color>
-    <color name="pureWhite">#ffffff</color>
-    <color name="drawer_list_background">#FAFAFA</color>
-    <color name="drawer_account_bk">#616161</color>
-    <color name="draw_account_textcolor">#FFFFFF</color>
-    <color name="normal_bkgd_color">#d8d8d8</color>
-    <color name="selected_text">#4285f4</color>
-    <color name="error_msg">#f2133c</color>
-    <color name="info_msg">#747474</color>
-    <color name="repo_selected">#ecf2a2</color>
-    <color name="mainback">#e0e8e8</color>
-    <color name="activePath">#b8e6f9</color>
-    <color name="selectedText">?attr/colorAccent</color>
+    <color name="appTextGray">#747474</color>
+    <color name="appSubtitleGray">#9b9b9b</color>
+    <color name="appTextWarning">#E91E63</color>
+    <color name="appIconWarning">?attr/colorPrimary</color>
+    <color name="appCoverLight">@color/appRowSelected</color>
+
+    <!-- blue gray light theme -->
+    <!--<color name="appAccent">#546E7A</color>-->
+    <!--<color name="appRowSelected">#B0BEC5</color>-->
+    <!--<color name="appInactive">#CFD8DC</color>-->
+
+    <!-- orange dark light theme -->
+    <color name="appAccent">#F4511E</color>
+    <color name="appRowSelected">#FF8A65</color>
+    <color name="appInactive">#FBE9E7</color>
+
 </resources>

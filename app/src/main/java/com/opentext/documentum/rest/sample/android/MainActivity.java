@@ -7,6 +7,7 @@ package com.opentext.documentum.rest.sample.android;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -28,6 +29,7 @@ import com.opentext.documentum.rest.sample.android.fragments.GroupsFragment;
 import com.opentext.documentum.rest.sample.android.fragments.UsersFragment;
 import com.opentext.documentum.rest.sample.android.items.DrawerItem;
 import com.opentext.documentum.rest.sample.android.util.AppCurrentUser;
+import com.opentext.documentum.rest.sample.android.util.ThemeResolver;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -82,6 +84,10 @@ public class MainActivity extends AppCompatActivity {
         setUpToolbar();
         adapter = new DrawerListAdapter(this, R.layout.item_drawerlist, drawerItems);
         drawerListView.setAdapter(adapter);
+        int[] colors = {0, ThemeResolver.resolve(getTheme(), R.attr.colorAccent), 0};
+        drawerListView.setDivider(new GradientDrawable(GradientDrawable.Orientation.RIGHT_LEFT, colors));
+        drawerListView.setDividerHeight(2);
+
         Intent intent = new Intent(MainActivity.this, CoverActivity.class);
         startActivityForResult(intent, WELCOME);
 
@@ -106,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == WELCOME && resultCode == -1) {
-            drawerTextView.setText(AppCurrentUser.getUsername());
+            drawerTextView.setText(" " + AppCurrentUser.getUsername());
             onDrawerItemClick(0);
         }
     }

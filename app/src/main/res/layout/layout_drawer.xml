@@ -39,7 +39,6 @@
         android:layout_width="@dimen/drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/drawer_list_background"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -73,9 +72,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:choiceMode="singleChoice"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="0dp"
-            android:paddingTop="40dp" />
+            android:background="@color/appInactive"
+            android:paddingTop="20dp" />
     </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>

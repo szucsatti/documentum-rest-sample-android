@@ -7,11 +7,12 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <item name="colorAccent">@color/appAccent</item>
         <!--context menu overlap the toolbar-->
         <item name="windowActionModeOverlay">true</item>
     </style>
 
-    <style name="DialogTheme" parent="Theme.AppCompat.Dialog">
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <!--<item name="android:windowBackground">@android:color/white</item>-->
     </style>
 
@@ -23,6 +24,6 @@
 
     <style name="WhiteDrawerIconStyle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">true</item>
-        <item name="color">@android:color/white</item>
+        <item name="color">@color/appInactive</item>
     </style>
 </resources>

@@ -17,15 +17,18 @@
         android:layout_weight="1">
 
         <LinearLayout
+            android:id="@+id/loading_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="20dp"
             android:gravity="center">
 
-            <ImageView
-                android:id="@+id/fragment_bk_image"
-                android:layout_width="@dimen/loading_image_length"
-                android:layout_height="@dimen/loading_image_length"
-                android:visibility="gone" />
+            <ProgressBar
+                android:id="@+id/fragment_bk_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true" />
+
         </LinearLayout>
 
         <TextView
@@ -56,24 +59,30 @@
             android:orientation="horizontal">
             <Button
                 android:id="@+id/ok_button"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:background="@color/appAccent"
+                android:textColor="?attr/colorPrimary"
                 android:layout_weight="1"
                 android:text="SELECT" />
             <Button
                 android:id="@+id/remove_button"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:background="@color/appAccent"
+                android:textColor="?attr/colorPrimary"
                 android:layout_height="wrap_content"
                 android:text="REMOVE" />
 
             <Button
                 android:id="@+id/cancel_button"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:background="@color/appAccent"
+                android:textColor="?attr/colorPrimary"
                 android:layout_weight="1"
                 android:text="CANCEL" />
         </LinearLayout>

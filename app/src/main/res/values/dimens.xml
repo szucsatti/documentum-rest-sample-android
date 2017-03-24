@@ -16,7 +16,7 @@
 
     <!-- drawer dimensions -->
     <dimen name="drawer_account_height">64dp</dimen>
-    <dimen name="drawer_width">200dp</dimen>
+    <dimen name="drawer_width">240dp</dimen>
     <dimen name="drawer_item_height">56dp</dimen>
     <dimen name="drawer_item_image_length">24dp</dimen>
 

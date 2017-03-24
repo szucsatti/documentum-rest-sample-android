@@ -30,7 +30,7 @@
                 android:fontFamily="sans-serif-smallcaps"
                 android:maxLines="1"
                 android:textAlignment="center"
-                android:textColor="@android:color/holo_green_light"
+                android:textColor="@color/appCoverLight"
                 android:textSize="30sp"
                 android:textStyle="bold|italic" />
         </RelativeLayout>

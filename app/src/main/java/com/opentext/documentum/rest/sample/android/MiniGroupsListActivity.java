@@ -6,11 +6,9 @@ package com.opentext.documentum.rest.sample.android;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -18,6 +16,7 @@ import com.opentext.documentum.rest.sample.android.adapters.GroupsListAdapter;
 import com.opentext.documentum.rest.sample.android.adapters.SysObjectListBaseAdapter;
 import com.opentext.documentum.rest.sample.android.enums.FeedType;
 import com.opentext.documentum.rest.sample.android.observables.SysNaviagtionObservables;
+import com.opentext.documentum.rest.sample.android.util.ViewFactory;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -70,14 +69,7 @@ public class MiniGroupsListActivity extends MiniListBaseActivity {
 
     @Override
     View createMainComponent() {
-        final ListView listView = new ListView(this);
-        listView.setOnItemClickListener(this);
-        listView.setOnScrollListener(this);
-        listView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        listView.setBackgroundColor(Color.WHITE);
-        listView.setDividerHeight(24);
-        listView.setDivider(getResources().getDrawable(R.color.pureWhite));
-        return listView;
+        return ViewFactory.INSTANCE.newListView(this);
     }
 
     @Override
@@ -91,7 +83,7 @@ public class MiniGroupsListActivity extends MiniListBaseActivity {
 //        SysNaviagtionObservables.getGroups(newAdapter, this, entryItem.entry.getId());
 
         SysObjectListBaseAdapter adapter = adapters.get(adapters.size() - 1);
-        if (adapter.containsSeleted(position))
+        if (adapter.containSelected(position))
             adapter.removeSelectedId(position);
         else
             adapter.addSelectId(position);

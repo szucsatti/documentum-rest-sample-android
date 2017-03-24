@@ -120,8 +120,7 @@ public class ObjectDetailFragment extends ObjectBaseFragment {
         if (("group".equals(contentType) || "user".equals(contentType))
                 && !AppCurrentUser.canCreateUserGroup()) {
             MenuItem saveItem = menu.findItem(R.id.ok);
-            saveItem.setEnabled(false);
-            saveItem.setIcon(getResources().getDrawable(R.drawable.vic_save_g));
+            saveItem.setVisible(false);
         }
     }
 
