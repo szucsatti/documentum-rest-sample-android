@@ -66,7 +66,6 @@ public class ObjectCreateFragment extends ObjectBaseFragment {
                                 new ObjectDetailItem(DctmModelType.OBJECT, DctmPropertyName.TITLE, ""),
                                 new ObjectDetailItem(DctmModelType.OBJECT, DctmPropertyName.SUBJECT, "")},
                         true);
-                downloadButton.setVisibility(View.GONE);
                 break;
             case R.id.create_user:
                 titleView.setText(getString(R.string.new_user));

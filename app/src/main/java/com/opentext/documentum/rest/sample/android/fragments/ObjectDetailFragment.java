@@ -21,6 +21,7 @@ import com.opentext.documentum.rest.sample.android.enums.DctmPropertyName;
 import com.opentext.documentum.rest.sample.android.items.ObjectDetailItem;
 import com.opentext.documentum.rest.sample.android.observables.ObjectDetailObservables;
 import com.opentext.documentum.rest.sample.android.util.AppCurrentUser;
+import com.opentext.documentum.rest.sample.android.util.MimeIconHelper;
 import com.opentext.documentum.rest.sample.android.util.RestObjectUtil;
 
 
@@ -75,14 +76,16 @@ public class ObjectDetailFragment extends ObjectBaseFragment {
                 ((MainActivity) getActivity()).removeTmpFragment(ObjectDetailFragment.this);
             }
         });
-        if (!DctmModelType.DOCUMENT.equals(contentType) || !hasContent()) {
+        String name = RestObjectUtil.getString(restObject, DctmPropertyName.OBJECT_NAME);
+        if (!DctmModelType.DOCUMENT.equals(contentType)
+                || !hasContent()
+                || !(MimeIconHelper.isTxt(name) || MimeIconHelper.isImage(name))) {
             setNullContent();
         } else {
             ObjectDetailObservables.loadObjectContent(this);
         }
 
         if (menuItemId == R.id.check_in_major || menuItemId == R.id.check_in_minor || menuItemId == R.id.check_in_branch) {
-            String name = RestObjectUtil.getString(restObject, DctmPropertyName.OBJECT_NAME);
             ((MainActivity) getActivity()).addStringAndResetToolbar(name);
             updateAdapterItems(new ObjectDetailItem[]{
                             new ObjectDetailItem(DctmModelType.OBJECT, DctmPropertyName.OBJECT_NAME, name),

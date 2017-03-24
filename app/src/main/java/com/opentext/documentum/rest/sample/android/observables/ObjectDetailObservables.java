@@ -88,13 +88,13 @@ public class ObjectDetailObservables {
             @Override
             public void onError(Throwable e) {
                 Log.d(TAG, throwableToString(e));
-                fragment.setUnsupportedContent();
+                fragment.setUnsupportedContent(null);
             }
 
             @Override
             public void onNext(Map<String, byte[]> o) {
                 if (o == null) {
-                    fragment.setUnsupportedContent();
+                    fragment.setUnsupportedContent(null);
                     return;
                 }
                 if (o.containsKey(KEY_TEXT))
@@ -103,7 +103,7 @@ public class ObjectDetailObservables {
                     fragment.setImageContent(o.get(KEY_IMAGE));
                 else {
                     fragment.setContentBytes(o.get(KEY_OTHER));
-                    fragment.setUnsupportedContent();
+                    fragment.setUnsupportedContent(null);
                 }
             }
         });

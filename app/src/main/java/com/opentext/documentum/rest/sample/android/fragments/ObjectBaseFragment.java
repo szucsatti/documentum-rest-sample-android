@@ -36,7 +36,6 @@ import com.opentext.documentum.rest.sample.android.MainActivity;
 import com.opentext.documentum.rest.sample.android.R;
 import com.opentext.documentum.rest.sample.android.adapters.ObjectDetailAdapter;
 import com.opentext.documentum.rest.sample.android.items.ObjectDetailItem;
-import com.opentext.documentum.rest.sample.android.observables.ObjectDetailObservables;
 import com.opentext.documentum.rest.sample.android.util.MimeIconHelper;
 
 import java.io.ByteArrayOutputStream;
@@ -76,8 +75,6 @@ public class ObjectBaseFragment extends Fragment {
     Button txtButton;
     @BindView(R.id.object_file_button)
     Button fileButton;
-    @BindView(R.id.object_download_button)
-    Button downloadButton;
     @BindView(R.id.object_content)
     View contentView;
 
@@ -157,11 +154,6 @@ public class ObjectBaseFragment extends Fragment {
 
     }
 
-    @OnClick(R.id.object_download_button)
-    void onClickDownloadButton() {
-        ObjectDetailObservables.downloadObject(this);
-    }
-
     @OnClick(R.id.object_file_button)
     void onClickFileButton() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -181,18 +173,25 @@ public class ObjectBaseFragment extends Fragment {
             int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
             returnCursor.moveToFirst();
             String fileNameString = returnCursor.getString(nameIndex);
-            try {
-                this.contentBytes = getBytesTool(getActivity().getContentResolver().openInputStream(selectedUri));
-            } catch (Exception e) {
-                Log.d(TAG, e.toString());
-                Toast.makeText(getContext(), "can't open the file", Toast.LENGTH_SHORT).show();
-            }
-            if (MimeIconHelper.isTxt(fileNameString))
+            //todo: check format other than object name
+            if (MimeIconHelper.isTxt(fileNameString)) {
+                getContentBytes(selectedUri);
                 setEditTextContent(this.contentBytes);
-            else if (MimeIconHelper.isImage(fileNameString))
+            } else if (MimeIconHelper.isImage(fileNameString)) {
+                getContentBytes(selectedUri);
                 setImageContent(this.contentBytes);
-            else
-                setUnsupportedContent();
+            } else {
+                setUnsupportedContent(fileNameString);
+            }
+        }
+    }
+
+    private void getContentBytes(Uri selectedUri) {
+        try {
+            this.contentBytes = getBytesTool(getActivity().getContentResolver().openInputStream(selectedUri));
+        } catch (Exception e) {
+            Log.d(TAG, e.toString());
+            Toast.makeText(getContext(), "can't open the file", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -240,11 +239,15 @@ public class ObjectBaseFragment extends Fragment {
         imageView.setImageBitmap(bmp);
     }
 
-    public void setUnsupportedContent() {
+    public void setUnsupportedContent(String filename) {
         textView.setVisibility(View.GONE);
         defaultTextView.setVisibility(View.GONE);
         imageView.setVisibility(View.GONE);
         errorTextView.setVisibility(View.VISIBLE);
+        if (filename != null) {
+            errorTextView.setText("File chosen - " + filename);
+            errorTextView.setTextColor(getContext().getColor(R.color.appAccent));
+        }
     }
 
     public void setNullContent() {
