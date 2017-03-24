@@ -110,10 +110,6 @@ public class CabinetsListAdapter extends SysObjectListBaseAdapter {
             aboutImage.setColorFilter(context.getColor(R.color.appRowSelected));
         }
 
-        if (position == getCount() - 1) {
-            addNextPageFeed();
-            notifyDataSetChanged();
-        }
         return convertView;
     }
 

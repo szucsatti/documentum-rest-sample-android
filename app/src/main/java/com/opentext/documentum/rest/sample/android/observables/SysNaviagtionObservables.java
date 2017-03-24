@@ -46,6 +46,7 @@ import static com.opentext.documentum.rest.sample.android.util.TypeInfoHelper.US
 
 public class SysNaviagtionObservables {
     private static final String TAG = "SysNaviagtionObserv";
+    private static final String PAGE_SIZE = "15";
 
     public static void getEntries(final SysObjectListBaseAdapter adapter, final BaseFragment fragment, final String id) {
 
@@ -59,9 +60,9 @@ public class SysNaviagtionObservables {
                     feed = null;
                     subscriber.onError(new Exception("id is blank"));
                 } else {
-                    feed = client.getFolders(client.getObject(id), "inline", "true", "view", FOLDER_ATTR_LIST);
+                    feed = client.getFolders(client.getObject(id), "inline", "true", "items-per-page", PAGE_SIZE, "view", FOLDER_ATTR_LIST);
                     adapter.addFeed(feed);
-                    feed = client.getDocuments(client.getObject(id), "inline", "true", "view", DOCUMENT_ATTR_LIST);
+                    feed = client.getDocuments(client.getObject(id), "inline", "true", "items-per-page", PAGE_SIZE, "view", DOCUMENT_ATTR_LIST);
                     adapter.addFeed(feed);
                 }
                 subscriber.onNext(adapter);
@@ -102,7 +103,7 @@ public class SysNaviagtionObservables {
                     feed = null;
                     subscriber.onError(new Exception("id is blank"));
                 } else {
-                    feed = client.getGroups(client.getObject(id), "inline", "true", "view", GROUP_ATTR_LIST);
+                    feed = client.getGroups(client.getObject(id), "inline", "true", "items-per-page", PAGE_SIZE, "view", GROUP_ATTR_LIST);
                 }
                 adapter.addFeed(feed);
                 subscriber.onNext(adapter);
@@ -148,20 +149,20 @@ public class SysNaviagtionObservables {
                 if (showAll || id == null)
                     switch (type) {
                         case USERS:
-                            feed = client.getUsers("inline", "true", "view", USER_ATTR_LIST);
+                            feed = client.getUsers("inline", "true", "items-per-page", PAGE_SIZE, "view", USER_ATTR_LIST);
                             break;
                         case GROUPS:
-                            feed = client.getGroups("inline", "true", "view", GROUP_ATTR_LIST);
+                            feed = client.getGroups("inline", "true", "items-per-page", PAGE_SIZE, "view", GROUP_ATTR_LIST);
                             break;
                         case CABINETS:
                         default:
-                            feed = client.getCabinets("inline", "true", "view", FOLDER_ATTR_LIST);
+                            feed = client.getCabinets("inline", "true", "items-per-page", PAGE_SIZE, "view", FOLDER_ATTR_LIST);
                             break;
                     }
                 else {
                     switch (type) {
                         case USERS:
-                            feed = client.getUsers(client.getGroup(id), "inline", "true", "view", USER_ATTR_LIST);
+                            feed = client.getUsers(client.getGroup(id), "inline", "true", "items-per-page", PAGE_SIZE, "view", USER_ATTR_LIST);
                             break;
                     }
                 }

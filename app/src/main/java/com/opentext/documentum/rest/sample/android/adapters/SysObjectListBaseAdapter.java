@@ -175,15 +175,16 @@ public abstract class SysObjectListBaseAdapter extends ArrayAdapter<EntryItem> {
 
             @Override
             public void onError(Throwable e) {
-                Toast.makeText(context, "Fail to get next page", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "fail to get more items", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onNext(Feed feed) {
-                if (feed == null || feed.getEntries() == null) {
-                    //Toast.makeText(context, "no more pages", Toast.LENGTH_SHORT).show();
+                if (feed == null || feed.getEntries() == null || feed.getEntries().isEmpty()) {
+                    Toast.makeText(context, "no more items", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                Toast.makeText(context, "got " + feed.getEntries().size() + " more items", Toast.LENGTH_SHORT).show();
                 addFeed(feed);
             }
         });

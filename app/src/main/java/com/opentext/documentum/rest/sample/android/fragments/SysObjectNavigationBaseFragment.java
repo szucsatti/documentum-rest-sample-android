@@ -31,7 +31,9 @@ import java.util.List;
 
 public abstract class SysObjectNavigationBaseFragment extends BaseFragment implements AdapterView.OnItemClickListener, AbsListView.OnScrollListener, View.OnClickListener, BaseUIInterface {
     protected List<SysObjectListBaseAdapter> adapters = new LinkedList<>();
-
+    private int firstVisibleItem = -1;
+    private int visibleItemCount = -1;
+    private int totalItemCount = -1;
 
     @Override
     abstract View createMainComponent();
@@ -41,7 +43,6 @@ public abstract class SysObjectNavigationBaseFragment extends BaseFragment imple
 
     @Override
     abstract public boolean onOptionsItemSelected(MenuItem item);
-
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -84,13 +85,20 @@ public abstract class SysObjectNavigationBaseFragment extends BaseFragment imple
 
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
-        if (scrollState == SCROLL_STATE_IDLE)
+        if (scrollState == SCROLL_STATE_IDLE) {
             rememberLocation();
+        }
+        if (firstVisibleItem + visibleItemCount == totalItemCount) {
+            getCurrentAdapter().addNextPageFeed();
+            getCurrentAdapter().notifyDataSetChanged();
+        }
     }
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
+        this.firstVisibleItem = firstVisibleItem;
+        this.visibleItemCount = visibleItemCount;
+        this.totalItemCount = totalItemCount;
     }
 
     @Override
