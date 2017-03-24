@@ -30,7 +30,7 @@ import static android.view.View.VISIBLE;
 
 public class LoginActivity extends AppCompatActivity {
 
-    @BindView(R.id.loading_layout)
+    @BindView(R.id.loading_progress)
     View loadingLayout;
     @BindView(R.id.login_main_content)
     View loginMainContent;

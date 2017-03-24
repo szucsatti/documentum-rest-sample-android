@@ -8,31 +8,99 @@
     android:layout_height="match_parent"
     tools:context="com.opentext.documentum.rest.sample.android.fragments.BaseFragment">
 
-    <LinearLayout
-        android:id="@+id/loading_layout"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center">
+        android:orientation="vertical">
 
-        <ProgressBar
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:indeterminate="true" />
-    </LinearLayout>
+            android:layout_margin="4dp"
+            android:gravity="top|center_horizontal"
+            android:id="@+id/filter_layout"
+            android:orientation="horizontal"
+            android:layout_alignParentTop="true"
+            android:visibility="gone">
 
-    <TextView
-        android:id="@+id/fragment_bk_text"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="36sp"
-        android:visibility="gone" />
+            <EditText
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:maxLines="1"
+                android:textAlignment="center"
+                android:id="@+id/filter_input" />
 
-    <View
-        android:id="@+id/fragment_main_component"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
+            <ImageButton
+                android:id="@+id/filter_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/vic_clear"
+                android:background="@null"
+                android:paddingTop="6dp"
+                android:layout_alignEnd="@id/filter_input" />
 
+        </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:gravity="top|center_horizontal"
+            android:id="@+id/search_layout"
+            android:orientation="horizontal"
+            android:layout_below="@+id/filter_layout"
+            android:visibility="gone">
+
+            <EditText
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:maxLines="1"
+                android:textAlignment="center"
+                android:id="@+id/search_input" />
+
+            <ImageButton
+                android:id="@+id/search_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/vic_clear"
+                android:background="@null"
+                android:paddingTop="6dp"
+                android:layout_alignEnd="@id/search_input" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/main_layout"
+            android:layout_below="@+id/search_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/loading_progress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:indeterminate="true" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/fragment_bk_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="36sp"
+                android:visibility="gone" />
+
+            <View
+                android:id="@+id/fragment_main_component"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

@@ -20,7 +20,7 @@
         android:layout_marginTop="16dp">
 
         <RelativeLayout
-            android:id="@+id/loading_layout"
+            android:id="@+id/loading_progress"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"

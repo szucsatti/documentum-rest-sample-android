@@ -39,6 +39,7 @@ public class CabinetsFragment extends SysObjectNavigationBaseFragment {
 
     @Override
     View createMainComponent() {
+
         final ListView listView = ViewFactory.INSTANCE.newListView(getContext(), this);
         listView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
             List<String> ids = new LinkedList<String>();
@@ -268,11 +269,14 @@ public class CabinetsFragment extends SysObjectNavigationBaseFragment {
                 CabinetsFragment.this.getActivity().invalidateOptionsMenu();
                 break;
             case R.id.search_menu:
-                //todo
+                searchLayout.setVisibility(View.VISIBLE);
                 break;
             case R.id.refresh_menu:
                 Log.d(TAG, "refresh_menu");
                 SysNaviagtionObservables.refresh(adapter, this);
+                break;
+            case R.id.filter_objects_menu:
+                filterLayout.setVisibility(View.VISIBLE);
                 break;
         }
         return true;
@@ -283,7 +287,7 @@ public class CabinetsFragment extends SysObjectNavigationBaseFragment {
         super.onActivityCreated(savedInstanceState);
         // here should get a first cabinets feed
         if (adapters.size() == 0) {
-            adapters.add(new CabinetsListAdapter(getContext(), R.layout.item_cabinetslist, null, null, this));
+            adapters.add(new CabinetsListAdapter(getContext(), R.layout.item_object, null, null, this));
             ((ListView) mainComponent).setAdapter(adapters.get(adapters.size() - 1));
         }
         CabinetsListAdapter lastAdapter = (CabinetsListAdapter) adapters.get(adapters.size() - 1);

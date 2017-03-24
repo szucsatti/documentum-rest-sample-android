@@ -35,6 +35,7 @@ public abstract class SysObjectNavigationBaseFragment extends BaseFragment imple
     private int visibleItemCount = -1;
     private int totalItemCount = -1;
 
+
     @Override
     abstract View createMainComponent();
 
@@ -87,10 +88,10 @@ public abstract class SysObjectNavigationBaseFragment extends BaseFragment imple
     public void onScrollStateChanged(AbsListView view, int scrollState) {
         if (scrollState == SCROLL_STATE_IDLE) {
             rememberLocation();
-        }
-        if (firstVisibleItem + visibleItemCount == totalItemCount) {
-            getCurrentAdapter().addNextPageFeed();
-            getCurrentAdapter().notifyDataSetChanged();
+            if (firstVisibleItem + visibleItemCount == totalItemCount) {
+                getCurrentAdapter().addNextPageFeed();
+                getCurrentAdapter().notifyDataSetChanged();
+            }
         }
     }
 
@@ -113,7 +114,7 @@ public abstract class SysObjectNavigationBaseFragment extends BaseFragment imple
             case DctmModelType.OBJECT:
                 String dm_type = (String) entryItem.entry.getContentObject().getProperties().get("r_object_type");
                 if (dm_type.equals("dm_folder") || dm_type.equals("dm_cabinet")) {
-                    CabinetsListAdapter newAdapter = new CabinetsListAdapter(getContext(), R.layout.item_cabinetslist, entryItem.entry.getContentObject(), entryItem.entry.getId(), this);
+                    CabinetsListAdapter newAdapter = new CabinetsListAdapter(getContext(), R.layout.item_object, entryItem.entry.getContentObject(), entryItem.entry.getId(), this);
                     adapters.add(newAdapter);
                     ((ListView) mainComponent).setAdapter(newAdapter);
                     ((MainActivity) getActivity()).addStringAndResetToolbar(entryItem.entry.getTitle());
@@ -127,7 +128,7 @@ public abstract class SysObjectNavigationBaseFragment extends BaseFragment imple
                 addObjectDetailFragment(entryItem);
                 break;
             case DctmModelType.GROUP:
-                GroupsListAdapter newAdapter = new GroupsListAdapter(getContext(), R.layout.item_cabinetslist, entryItem.entry.getId(), this);
+                GroupsListAdapter newAdapter = new GroupsListAdapter(getContext(), R.layout.item_object, entryItem.entry.getId(), this);
                 adapters.add(newAdapter);
                 ((ListView) mainComponent).setAdapter(newAdapter);
                 ((MainActivity) getActivity()).addStringAndResetToolbar(entryItem.entry.getTitle());

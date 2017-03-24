@@ -59,7 +59,7 @@ public class MiniGroupsListActivity extends MiniListBaseActivity {
         ids = getIntent().getStringArrayExtra(IDS_KEY);
 
         if (adapters.size() == 0) {
-            adapters.add(new GroupsListAdapter(this, R.layout.item_cabinetslist, null, null));
+            adapters.add(new GroupsListAdapter(this, R.layout.item_object, null, null));
             ((ListView) mainComponent).setAdapter(adapters.get(adapters.size() - 1));
         }
         GroupsListAdapter lastAdapter = (GroupsListAdapter) adapters.get(adapters.size() - 1);

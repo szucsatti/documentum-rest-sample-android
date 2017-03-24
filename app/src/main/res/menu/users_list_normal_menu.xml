@@ -10,6 +10,11 @@
         android:title="create"
         app:showAsAction="ifRoom|withText" />
     <item
+        android:id="@+id/filter_users_menu"
+        android:icon="@drawable/vic_filter_w"
+        android:title="Filter"
+        app:showAsAction="ifRoom|withText" />
+    <item
         android:id="@+id/refresh_menu"
         android:icon="@drawable/vic_refresh_w"
         android:title="refresh"

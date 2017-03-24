@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         initVariables();
         setUpToolbar();
-        adapter = new DrawerListAdapter(this, R.layout.item_drawerlist, drawerItems);
+        adapter = new DrawerListAdapter(this, R.layout.item_drawer, drawerItems);
         drawerListView.setAdapter(adapter);
         int[] colors = {0, ThemeResolver.resolve(getTheme(), R.attr.colorAccent), 0};
         drawerListView.setDivider(new GradientDrawable(GradientDrawable.Orientation.RIGHT_LEFT, colors));

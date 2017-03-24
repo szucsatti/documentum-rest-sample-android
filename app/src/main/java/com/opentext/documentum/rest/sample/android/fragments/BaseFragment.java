@@ -11,6 +11,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.opentext.documentum.rest.sample.android.R;
@@ -22,12 +24,24 @@ import butterknife.Unbinder;
 
 public abstract class BaseFragment extends Fragment {
     private static final String TAG = "BaseFragment";
-    @BindView(R.id.loading_layout)
+    @BindView(R.id.loading_progress)
     View loadingView;
     @BindView(R.id.fragment_bk_text)
     TextView bkTextView;
     @BindView(R.id.fragment_main_component)
     View mainComponent;
+    @BindView(R.id.filter_input)
+    EditText filterInput;
+    @BindView(R.id.filter_clear)
+    ImageButton filterClearButton;
+    @BindView(R.id.filter_layout)
+    View filterLayout;
+    @BindView(R.id.search_input)
+    EditText searchInput;
+    @BindView(R.id.search_clear)
+    ImageButton searchClearButton;
+    @BindView(R.id.search_layout)
+    View searchLayout;
 
     private Unbinder unbinder;
 
@@ -47,7 +61,29 @@ public abstract class BaseFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_base, container, false);
         unbinder = ButterKnife.bind(this, view);
+        setupFilterLayout();
+        setupSearchLayout();
         return view;
+    }
+
+    private void setupFilterLayout() {
+        filterInput.setCompoundDrawablesWithIntrinsicBounds(getContext().getDrawable(R.drawable.vic_filter), null, null, null);
+        filterClearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterLayout.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void setupSearchLayout() {
+        searchInput.setCompoundDrawablesWithIntrinsicBounds(getContext().getDrawable(R.drawable.vic_search), null, null, null);
+        searchClearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchLayout.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override

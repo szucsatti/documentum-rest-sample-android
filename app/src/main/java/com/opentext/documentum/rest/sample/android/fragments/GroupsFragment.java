@@ -180,6 +180,9 @@ public class GroupsFragment extends SysObjectNavigationBaseFragment {
             case R.id.refresh_menu:
                 SysNaviagtionObservables.refresh(adapter, this);
                 break;
+            case R.id.filter_groups_menu:
+                filterLayout.setVisibility(View.VISIBLE);
+                break;
         }
         return true;
     }
@@ -197,7 +200,7 @@ public class GroupsFragment extends SysObjectNavigationBaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (adapters.size() == 0) {
-            adapters.add(new GroupsListAdapter(getContext(), R.layout.item_cabinetslist, null, this));
+            adapters.add(new GroupsListAdapter(getContext(), R.layout.item_object, null, this));
             ((ListView) mainComponent).setAdapter(adapters.get(adapters.size() - 1));
         }
         GroupsListAdapter lastAdapter = (GroupsListAdapter) adapters.get(adapters.size() - 1);

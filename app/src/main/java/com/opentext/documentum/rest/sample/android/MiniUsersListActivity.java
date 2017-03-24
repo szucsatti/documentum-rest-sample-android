@@ -53,7 +53,7 @@ public class MiniUsersListActivity extends MiniListBaseActivity {
             removeButton.setVisibility(View.GONE);
         }
         if (adapters.size() == 0) {
-            adapters.add(new UsersListAdapter(this, R.layout.item_cabinetslist, null, null));
+            adapters.add(new UsersListAdapter(this, R.layout.item_object, null, null));
             ((ListView) mainComponent).setAdapter(adapters.get(adapters.size() - 1));
         }
         UsersListAdapter lastAdapter = (UsersListAdapter) adapters.get(adapters.size() - 1);

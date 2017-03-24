@@ -126,7 +126,7 @@ public class ObjectBaseFragment extends Fragment {
                 ((MainActivity) getActivity()).removeTmpFragment(ObjectBaseFragment.this);
             }
         });
-        adapter = new ObjectDetailAdapter(getContext(), R.layout.item_object_detail_list);
+        adapter = new ObjectDetailAdapter(getContext(), R.layout.item_object_property);
         objectDetailListView.setAdapter(adapter);
         scrollView.requestDisallowInterceptTouchEvent(true);
         scrollView.setNestedScrollingEnabled(true);

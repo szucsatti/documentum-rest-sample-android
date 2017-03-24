@@ -32,7 +32,7 @@ abstract public class MiniListBaseActivity extends AppCompatActivity implements 
     protected List<SysObjectListBaseAdapter> adapters = new LinkedList<>();
     @BindView(R.id.tool_bar)
     Toolbar toolbar;
-    @BindView(R.id.loading_layout)
+    @BindView(R.id.loading_progress)
     View loadingView;
     @BindView(R.id.fragment_bk_text)
     TextView bkTextView;

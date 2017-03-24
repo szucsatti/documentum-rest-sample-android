@@ -56,6 +56,11 @@
                 android:title="Cancel move"
                 app:showAsAction="ifRoom|withText" />
             <item
+                android:id="@+id/filter_objects_menu"
+                android:icon="@drawable/vic_filter"
+                android:title="Filter"
+                app:showAsAction="ifRoom|withText" />
+            <item
                 android:id="@+id/search_menu"
                 android:icon="@drawable/vic_search"
                 android:title="Search"
