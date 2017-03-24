@@ -398,7 +398,7 @@ public class SysNaviagtionObservables {
         });
     }
 
-    public static void addUserOrGroupToGroups(final Set<String> userIds, final boolean users, final String groupId, final BaseUIInterface baseUIInterface, final SysObjectListBaseAdapter adapter) {
+    public static void addUserOrGroupToGroups(final Set<String> userIds, final boolean users, final List<String> groupIds, final BaseUIInterface baseUIInterface, final SysObjectListBaseAdapter adapter) {
         baseUIInterface.enableLoadingBackground();
         final List<String> failIds = new LinkedList<>();
         Observable.create(new Observable.OnSubscribe<Object>() {
@@ -406,18 +406,20 @@ public class SysNaviagtionObservables {
             public void call(Subscriber<? super Object> subscriber) {
                 DCTMRestClient client = AppDCTMClientBuilder.build();
                 BatchBuilder batchBuilder = BatchBuilder.builder(client);
-                RestObject group = client.getGroup(groupId);
-                for (String id : userIds)
-                    if (users) {
-                        batchBuilder.operation().addUserToGroup(group, client.getUser(id));
-                    } else {
-                        batchBuilder.operation().addGroupToGroup(group, client.getGroup(id));
+                for (String groupId : groupIds) {
+                    RestObject group = client.getGroup(groupId);
+                    for (String id : userIds)
+                        if (users) {
+                            batchBuilder.operation().addUserToGroup(group, client.getUser(id));
+                        } else {
+                            batchBuilder.operation().addGroupToGroup(group, client.getGroup(id));
+                        }
+                    try {
+                        client.createBatch(batchBuilder.build());
+                    } catch (Exception e) {
+                        Log.d(TAG, throwableToString(e));
+                        failIds.add("");
                     }
-                try {
-                    client.createBatch(batchBuilder.build());
-                } catch (Exception e) {
-                    Log.d(TAG, throwableToString(e));
-                    failIds.add("");
                 }
                 subscriber.onNext(null);
             }

@@ -20,7 +20,9 @@ import com.opentext.documentum.rest.sample.android.enums.FeedType;
 import com.opentext.documentum.rest.sample.android.observables.SysNaviagtionObservables;
 import com.opentext.documentum.rest.sample.android.util.ViewFactory;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import butterknife.OnClick;
@@ -96,7 +98,9 @@ public class MiniUsersListActivity extends MiniListBaseActivity {
         Set<String> ids = new HashSet<>();
         for (int i : selected)
             ids.add(adapter.getItem(i).entry.getId());
-        SysNaviagtionObservables.addUserOrGroupToGroups(ids, true, getIntent().getStringExtra(GROUP_ID), this, adapter);
+        List<String> groupIds = Arrays.asList(getIntent().getStringExtra(GROUP_ID));
+        SysNaviagtionObservables.addUserOrGroupToGroups(ids, true, groupIds, this, adapter);
+        this.finish();
     }
 
     @OnClick(R.id.remove_button)
@@ -107,6 +111,7 @@ public class MiniUsersListActivity extends MiniListBaseActivity {
         for (int i : selected)
             items.add(adapter.getItem(i).entry);
         SysNaviagtionObservables.removeUsers(items, this, adapter);
+        this.finish();
     }
 
 }

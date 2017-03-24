@@ -76,7 +76,7 @@ public class UsersFragment extends SysObjectNavigationBaseFragment {
                 // TODO: menu item clicked.
                 boolean flag = true;
                 switch (item.getItemId()) {
-                    case R.id.move_to_group_menu:
+                    case R.id.add_user_to_group_menu:
                         Intent intent = MiniGroupsListActivity.newIntent(getContext(), idArray);
                         startActivity(intent);
                         break;

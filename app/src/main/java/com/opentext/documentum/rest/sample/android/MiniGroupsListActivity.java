@@ -18,7 +18,10 @@ import com.opentext.documentum.rest.sample.android.enums.FeedType;
 import com.opentext.documentum.rest.sample.android.observables.SysNaviagtionObservables;
 import com.opentext.documentum.rest.sample.android.util.ViewFactory;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import butterknife.OnClick;
@@ -29,12 +32,14 @@ public class MiniGroupsListActivity extends MiniListBaseActivity {
     private static final String SHOW_BUTTONS = "show_buttons_key";
     private static final String GROUP_NAME = "group_name";
     private static final String GROUP_ID = "group_id";
+    private static final String FROM_GROUP = "from_group";
 
     private String[] ids;
 
     public static Intent newIntent(Context context, String[] ids) {
         Intent intent = new Intent(context, MiniGroupsListActivity.class);
         intent.putExtra(IDS_KEY, ids);
+        intent.putExtra(FROM_GROUP, false);
         return intent;
     }
 
@@ -43,6 +48,7 @@ public class MiniGroupsListActivity extends MiniListBaseActivity {
         intent.putExtra(SHOW_BUTTONS, showButtons);
         intent.putExtra(GROUP_NAME, groupName);
         intent.putExtra(GROUP_ID, groupId);
+        intent.putExtra(FROM_GROUP, true);
         return intent;
     }
 
@@ -74,14 +80,6 @@ public class MiniGroupsListActivity extends MiniListBaseActivity {
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        this.findViewById(R.id.back_button).setVisibility(View.VISIBLE);
-//        EntryItem entryItem = (EntryItem) parent.getItemAtPosition(position);
-//        GroupsListAdapter newAdapter = new GroupsListAdapter(this, R.layout.item_cabinetslist, entryItem.entry.getId(), null);
-//        adapters.add(newAdapter);
-//        ((ListView) mainComponent).setAdapter(newAdapter);
-//        this.addStringAndResetToolbar(entryItem.entry.getTitle());
-//        SysNaviagtionObservables.getGroups(newAdapter, this, entryItem.entry.getId());
-
         SysObjectListBaseAdapter adapter = adapters.get(adapters.size() - 1);
         if (adapter.containSelected(position))
             adapter.removeSelectedId(position);
@@ -102,17 +100,25 @@ public class MiniGroupsListActivity extends MiniListBaseActivity {
     void ok() {
         SysObjectListBaseAdapter adapter = adapters.get(adapters.size() - 1);
         Set<String> userIds = new HashSet<>();
-        if (adapter instanceof GroupsListAdapter) {
+        boolean fromGroup = getIntent().getBooleanExtra(FROM_GROUP, true);
+        if (fromGroup) {
             Set<Integer> selected = adapter.getSelectedSet();
             for (int i : selected) {
                 userIds.add(adapter.getItem(i).entry.getId());
             }
-            SysNaviagtionObservables.addUserOrGroupToGroups(userIds, false, getIntent().getStringExtra(GROUP_ID), this, adapter);
+            List<String> groupIds = Arrays.asList(getIntent().getStringExtra(GROUP_ID));
+            SysNaviagtionObservables.addUserOrGroupToGroups(userIds, false, groupIds, this, adapter);
         } else {
             for (String id : ids)
                 userIds.add(id);
-            SysNaviagtionObservables.addUserOrGroupToGroups(userIds, true, adapter.getEntranceObjectId(), this, null);
+            List<String> groupIds = new ArrayList<>();
+            Set<Integer> selected = adapter.getSelectedSet();
+            for (int i : selected) {
+                groupIds.add(adapter.getItem(i).entry.getId());
+            }
+            SysNaviagtionObservables.addUserOrGroupToGroups(userIds, true, groupIds, this, null);
         }
+        this.finish();
     }
 
 }
