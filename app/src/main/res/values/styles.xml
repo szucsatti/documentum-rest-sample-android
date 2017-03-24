@@ -26,4 +26,9 @@
         <item name="spinBars">true</item>
         <item name="color">@color/appInactive</item>
     </style>
+
+    <style name="PopupAnm" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/popup_enter</item>
+        <item name="android:windowExitAnimation">@anim/popup_exit</item>
+    </style>
 </resources>

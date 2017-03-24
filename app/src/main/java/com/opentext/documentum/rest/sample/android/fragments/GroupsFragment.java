@@ -182,6 +182,7 @@ public class GroupsFragment extends SysObjectNavigationBaseFragment {
                 break;
             case R.id.filter_groups_menu:
                 filterLayout.setVisibility(View.VISIBLE);
+                filterInput.requestFocus();
                 break;
         }
         return true;
@@ -195,6 +196,16 @@ public class GroupsFragment extends SysObjectNavigationBaseFragment {
         }
     }
 
+
+    @Override
+    void refreshOnFilter() {
+        Toast.makeText(getContext(), "filter not added yet", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    void refreshOnSearch() {
+        Toast.makeText(getContext(), "search not supported", Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

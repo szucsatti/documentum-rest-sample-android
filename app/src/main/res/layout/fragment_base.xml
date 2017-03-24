@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:gravity="top|center_horizontal"
-            android:id="@+id/filter_layout"
+            android:id="@+id/search_layout"
             android:orientation="horizontal"
             android:layout_alignParentTop="true"
             android:visibility="gone">
@@ -28,35 +28,18 @@
                 android:layout_width="match_parent"
                 android:maxLines="1"
                 android:textAlignment="center"
-                android:id="@+id/filter_input" />
+                android:textColor="?attr/colorAccent"
+                android:id="@+id/search_input" />
 
             <ImageButton
-                android:id="@+id/filter_clear"
+                android:id="@+id/search_confirm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/vic_clear"
+                android:src="@drawable/vic_right"
                 android:background="@null"
                 android:paddingTop="6dp"
-                android:layout_alignEnd="@id/filter_input" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:gravity="top|center_horizontal"
-            android:id="@+id/search_layout"
-            android:orientation="horizontal"
-            android:layout_below="@+id/filter_layout"
-            android:visibility="gone">
-
-            <EditText
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:maxLines="1"
-                android:textAlignment="center"
-                android:id="@+id/search_input" />
+                android:paddingEnd="26dp"
+                android:layout_alignEnd="@id/search_input" />
 
             <ImageButton
                 android:id="@+id/search_clear"
@@ -65,13 +48,83 @@
                 android:src="@drawable/vic_clear"
                 android:background="@null"
                 android:paddingTop="6dp"
-                android:layout_alignEnd="@id/search_input" />
+                android:layout_alignEnd="@id/search_confirm" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:gravity="top|center_horizontal"
+            android:id="@+id/filter_layout"
+            android:orientation="horizontal"
+            android:layout_below="@+id/search_layout"
+            android:visibility="gone">
+
+            <EditText
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:maxLines="1"
+                android:textAlignment="center"
+                android:textColor="?attr/colorAccent"
+                android:id="@+id/filter_input" />
+
+            <ImageButton
+                android:id="@+id/filter_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/vic_up_o"
+                android:background="@null"
+                android:paddingTop="6dp"
+                android:paddingEnd="54dp"
+                android:layout_alignEnd="@id/filter_input"
+                android:visibility="gone" />
+            <ImageButton
+                android:id="@+id/filter_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/vic_down"
+                android:background="@null"
+                android:paddingTop="6dp"
+                android:paddingEnd="54dp"
+                android:layout_alignEnd="@id/filter_up"
+                android:visibility="gone" />
+
+            <ImageButton
+                android:id="@+id/filter_down_o"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/vic_down_o"
+                android:background="@null"
+                android:paddingTop="6dp"
+                android:paddingEnd="54dp"
+                android:layout_alignEnd="@id/filter_down" />
+
+            <ImageButton
+                android:id="@+id/filter_confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/vic_right"
+                android:background="@null"
+                android:paddingTop="6dp"
+                android:paddingEnd="26dp"
+                android:layout_alignEnd="@id/filter_down_o" />
+
+            <ImageButton
+                android:id="@+id/filter_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/vic_clear"
+                android:background="@null"
+                android:paddingTop="6dp"
+                android:layout_alignEnd="@id/filter_confirm" />
 
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/main_layout"
-            android:layout_below="@+id/search_layout"
+            android:layout_below="@+id/filter_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

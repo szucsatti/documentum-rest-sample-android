@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.emc.documentum.rest.client.sample.model.Entry;
 import com.emc.documentum.rest.client.sample.model.RestObject;
@@ -270,6 +271,7 @@ public class CabinetsFragment extends SysObjectNavigationBaseFragment {
                 break;
             case R.id.search_menu:
                 searchLayout.setVisibility(View.VISIBLE);
+                searchInput.requestFocus();
                 break;
             case R.id.refresh_menu:
                 Log.d(TAG, "refresh_menu");
@@ -277,9 +279,20 @@ public class CabinetsFragment extends SysObjectNavigationBaseFragment {
                 break;
             case R.id.filter_objects_menu:
                 filterLayout.setVisibility(View.VISIBLE);
+                filterInput.requestFocus();
                 break;
         }
         return true;
+    }
+
+    @Override
+    void refreshOnFilter() {
+        Toast.makeText(getContext(), "filter not added yet", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    void refreshOnSearch() {
+        Toast.makeText(getContext(), "search not added yet", Toast.LENGTH_SHORT).show();
     }
 
     @Override

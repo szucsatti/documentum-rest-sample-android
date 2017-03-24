@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.opentext.documentum.rest.sample.android.MainActivity;
 import com.opentext.documentum.rest.sample.android.MiniGroupsListActivity;
@@ -127,9 +128,20 @@ public class UsersFragment extends SysObjectNavigationBaseFragment {
                 break;
             case R.id.filter_users_menu:
                 filterLayout.setVisibility(View.VISIBLE);
+                filterInput.requestFocus();
                 break;
         }
         return true;
+    }
+
+    @Override
+    void refreshOnFilter() {
+        Toast.makeText(getContext(), "filter not added yet", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    void refreshOnSearch() {
+        Toast.makeText(getContext(), "search 2not added yet", Toast.LENGTH_SHORT).show();
     }
 
     @Override

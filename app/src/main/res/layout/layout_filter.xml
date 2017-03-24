@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2017. OpenText Corporation. All Rights Reserved.
+  -->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="500dp"
+    android:layout_margin="12dp"
+    android:layout_alignParentTop="true"
+    android:background="@color/appAccent"
+    android:orientation="vertical"
+    android:id="@+id/activity_filter">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-smallcaps"
+            android:maxLines="1"
+            android:gravity="center|center_horizontal"
+            android:textSize="16sp"
+            android:text="Advanced Filter Here"
+            android:textColor="?attr/colorPrimary" />
+    </RelativeLayout>
+
+</FrameLayout>
