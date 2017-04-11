@@ -1,0 +1,21 @@
+language: android
+jdk: oraclejdk8
+android:
+  components:
+  - tools
+  - platform-tools
+  - build-tools-25.0.2
+  - android-25
+  - extra-google-m2repository
+  - extra-android-m2repository
+script:
+- "./gradlew clean assemble"
+deploy:
+  provider: releases
+  api_key:
+    secure: ssTbQe61fX3AmLHno5kxxXHg0BJs+LmMGurYhmno3qPVV6qD4xO9mRwHZsjHYCyPXuJcVh+QystWx5BbFWbYWi6iN3Vf/lbptL/xIij9AsmRZlIlHbSQnVjG+MyMnkOFGqG+qdbXhoe0t+g/FUTBC6blMWU1ZDp+1IkZ0SKUIrISo9D76Lg1mrsgQZHMmijA6Wizi0FeY/uy4EF/hInY9HwD/cqQq0yvLIIQ9zxvaJ/xz03c8O0/RMgJJ416WpZbn65zck1uiS1+skl49ArT2I4v4p1ZSyYymTGLcK7Z/vnzu8hxdSiDdTbOO7yFzuwoeEXqkEOsqc0sxdpxxekCKjxA61ksAo+CCF5bHC1ETsE9keNNPjrs1AA/QKiET4gXmkvs4pYSN+FqpYH6eD08lSNom7yoyJQVTIG6Yir6S6kykGlIqhk4VoxvzGkEblAzvvXqSCLUG/Onsmtz/sscXHwySqnd+jSnzl1EBdX1KavT7YTu5eGVjLlWSmCdJeIT10zgG6OGzi6ZxQ+RWO2AIyVHcD0RiwxTtX1HX88p9fvvzlCLzxzkt4cTX7ABeSQDSjW4RJ1DJbnWqELwrIgFUhIoq3Op2rZSJ96iOKBx/XiJfxrPjQnlWNEP9/GejXNhQMj3SVwpe6jgzOQ0kdm7JWkaHMWKqYMAKGMEzm7M6QI=
+  file: app/build/outputs/apk/*release*.apk
+  file_glob: "true"
+  skip_cleanup: true
+  on:
+    repo: Enterprise-Content-Management/documentum-rest-sample-android
