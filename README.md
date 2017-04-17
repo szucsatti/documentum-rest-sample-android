@@ -1,6 +1,6 @@
 # Documentum REST Services Android Sample
 
-[![License: Apache 2](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+[![Build Status](https://travis-ci.org/Enterprise-Content-Management/documentum-rest-sample-android.svg?branch=master)](https://travis-ci.org/Enterprise-Content-Management/documentum-rest-sample-android) [![License: Apache 2](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
 
 This project demonstrates the development of an Android application to access Documentum repositories. It uses [Documentum REST Java Client](https://github.com/Enterprise-Content-Management/documentum-rest-client-java) to communicate with Documentum REST Services. As a sample, there are several cabinets, folders, documents, users and groups related features implemented in this app.
