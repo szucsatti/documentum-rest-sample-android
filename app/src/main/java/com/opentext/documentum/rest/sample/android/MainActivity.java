@@ -4,11 +4,13 @@
 
 package com.opentext.documentum.rest.sample.android;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -23,6 +25,15 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.amazonaws.mobile.client.AWSMobileClient;
+import com.amazonaws.mobile.client.AWSStartupHandler;
+import com.amazonaws.mobile.client.AWSStartupResult;
+import com.amazonaws.mobileconnectors.pinpoint.PinpointConfiguration;
+import com.amazonaws.mobileconnectors.pinpoint.PinpointManager;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.opentext.documentum.rest.sample.android.adapters.DrawerListAdapter;
 import com.opentext.documentum.rest.sample.android.fragments.CabinetsFragment;
 import com.opentext.documentum.rest.sample.android.fragments.GroupsFragment;
@@ -75,6 +86,9 @@ public class MainActivity extends AppCompatActivity {
     List<String> currentStringList;
     DrawerListAdapter adapter;
 
+    //push notifications
+    private static PinpointManager pinpointManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,6 +120,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, WELCOME);
             }
         });
+
+        // Initialize the AWS Mobile Client
+        AWSMobileClient.getInstance().initialize(this, new AWSStartupHandler() {
+            @Override
+            public void onComplete(AWSStartupResult awsStartupResult) {
+                Log.d(TAG, "AWSMobileClient is instantiated and you are connected to AWS!");
+            }
+        }).execute();
+
+        // Initialize PinpointManager
+        getPinpointManager(getApplicationContext());
     }
 
     @Override
@@ -297,5 +322,27 @@ public class MainActivity extends AppCompatActivity {
         }
         this.currentStringList.remove(currentStringList.size() - 1);
         resetTitle();
+    }
+
+    public static PinpointManager getPinpointManager(final Context applicationContext) {
+        if (pinpointManager == null) {
+            PinpointConfiguration pinpointConfig = new PinpointConfiguration(
+                    applicationContext,
+                    AWSMobileClient.getInstance().getCredentialsProvider(),
+                    AWSMobileClient.getInstance().getConfiguration());
+
+            pinpointManager = new PinpointManager(pinpointConfig);
+
+            FirebaseInstanceId.getInstance().getInstanceId()
+                    .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                            final String token = task.getResult().getToken();
+                            Log.d(TAG, "Registering push notifications token: " + token);
+                            pinpointManager.getNotificationClient().registerDeviceToken(token);
+                        }
+                    });
+        }
+        return pinpointManager;
     }
 }

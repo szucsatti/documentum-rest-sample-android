@@ -3,16 +3,16 @@
  */
 
 apply plugin: 'com.android.application'
-apply plugin: 'android-apt'
+apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "com.opentext.documentum.rest.sample.android"
         minSdkVersion 23
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary true
@@ -42,25 +42,43 @@ android {
     }
 }
 
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    // REST LIBS
-    compile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
-//    compile 'cz.msebera.android:httpclient:4.4.1.2'
-    compile 'org.springframework.android:spring-android-rest-template:2.0.0.M3'
-    compile 'commons-codec:commons-codec:1.9'
-    compile 'com.fasterxml.jackson.core:jackson-core:2.7.3'
-    compile 'com.fasterxml.jackson.core:jackson-annotations:2.7.3'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.7.3'
-    compile 'com.android.support:appcompat-v7:25.2.0'
-    compile 'com.android.support:design:25.2.0'
-    compile 'com.jakewharton:butterknife:8.3.0'
-    apt 'com.jakewharton:butterknife-compiler:8.3.0'
+repositories {
+    google()
+    jcenter()
+}
 
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'io.reactivex:rxjava:1.1.6'
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    // REST LIBS
+    implementation 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
+//    compile 'cz.msebera.android:httpclient:4.4.1.2'
+    implementation 'org.springframework.android:spring-android-rest-template:2.0.0.M3'
+    implementation 'commons-codec:commons-codec:1.9'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.7.3'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.7.3'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.7.3'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.jakewharton:butterknife:8.3.0'
+    annotationProcessor  'com.jakewharton:butterknife-compiler:8.3.0'
+
+    implementation 'io.reactivex:rxandroid:1.2.1'
+    implementation 'io.reactivex:rxjava:1.1.6'
 //    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
 //    compile 'io.reactivex.rxjava2:rxjava:2.0.7'
 
+    implementation 'com.amazonaws:aws-android-sdk-core:2.7.+'
+
+    implementation 'com.google.firebase:firebase-core:16.0.5'
+
+    // push notifications
+    // Overrides an auth dependency to ensure correct behavior
+    implementation 'com.google.android.gms:play-services-auth:16.0.1'
+
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.firebase:firebase-messaging:17.3.4'
+
+    implementation 'com.amazonaws:aws-android-sdk-pinpoint:2.8.+'
+    implementation ('com.amazonaws:aws-android-sdk-mobile-client:2.8.+@aar') { transitive = true }
 }
