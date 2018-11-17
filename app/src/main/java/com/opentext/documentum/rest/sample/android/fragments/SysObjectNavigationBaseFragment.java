@@ -138,6 +138,11 @@ public abstract class SysObjectNavigationBaseFragment extends BaseFragment imple
 
     }
 
+    public void openFolder(){
+        ((ListView) mainComponent).performItemClick(null, 0, 0);
+    }
+
+
     public void addObjectDetailFragment(EntryItem entryItem) {
         SysObjectListBaseAdapter adapter = adapters.get(adapters.size() - 1);
         getActivity().findViewById(R.id.back_button).setVisibility(View.VISIBLE);
