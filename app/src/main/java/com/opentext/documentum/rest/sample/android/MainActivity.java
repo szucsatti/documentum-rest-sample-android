@@ -6,6 +6,7 @@ package com.opentext.documentum.rest.sample.android;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.GradientDrawable;
@@ -85,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
     ActionBarDrawerToggle drawerToggle;
     List<String> currentStringList;
     DrawerListAdapter adapter;
+    private PushNotificationReceiver receiver = new PushNotificationReceiver();
 
     //push notifications
     private static PinpointManager pinpointManager;
@@ -131,6 +133,13 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize PinpointManager
         getPinpointManager(getApplicationContext());
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("push-notification");
+
+        receiver.setMainActivity(this);
+
+        registerReceiver(receiver, filter);
     }
 
     @Override
