@@ -47,14 +47,4 @@ public class PushListenerService extends FirebaseMessagingService {
         intent.putExtra(INTENT_SNS_NOTIFICATION_DATA, dataMap);
         sendBroadcast(intent);
     }
-
-    /**
-     * Helper method to extract push message from bundle.
-     * sendBroadcast(intent);
-     * @param data bundle
-     * @return message string from push notification
-     */
-    public static String getMessage(Bundle data) {
-        return ((HashMap) data.get("data")).toString();
-    }
 }
